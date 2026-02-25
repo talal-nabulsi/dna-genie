@@ -16,3 +16,5 @@ env:
     value: "308098853164"
   - variable: NEXT_PUBLIC_FIREBASE_APP_ID
     value: "1:308098853164:web:03cb861c213baee65f2489"
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-93L6NMW301
