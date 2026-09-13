@@ -1,60 +1,40 @@
 "use client";
 
-import { useState } from "react";
 import { StudyReference } from "@/lib/traits/types";
-import { BookOpen, ChevronDown, ChevronUp, ExternalLink } from "lucide-react";
+import { BookOpen, ExternalLink } from "lucide-react";
 
-interface StudyCitationsProps {
-  studies: StudyReference[];
-}
-
-export default function StudyCitations({ studies }: StudyCitationsProps) {
-  const [expanded, setExpanded] = useState(false);
-
+export default function StudyCitations({ studies }: { studies: StudyReference[] }) {
   if (studies.length === 0) return null;
-
   return (
     <div className="glass-card p-6">
-      <button
-        onClick={() => setExpanded(!expanded)}
-        className="flex items-center justify-between w-full"
-      >
-        <div className="flex items-center gap-2">
-          <BookOpen className="w-4 h-4 text-[var(--color-neon)]" />
-          <h3 className="text-lg font-semibold">
-            Scientific References ({studies.length})
-          </h3>
-        </div>
-        {expanded ? (
-          <ChevronUp className="w-4 h-4 text-[var(--color-muted)]" />
-        ) : (
-          <ChevronDown className="w-4 h-4 text-[var(--color-muted)]" />
-        )}
-      </button>
-
-      {expanded && (
-        <ul className="mt-4 space-y-3">
-          {studies.map((study) => (
-            <li key={study.pmid} className="text-sm">
-              <p className="text-[var(--color-foreground)]/80 mb-1">
-                {study.title}
-              </p>
-              <div className="flex items-center gap-3 text-xs text-[var(--color-muted)]">
-                <span>{study.journal}, {study.year}</span>
+      <div className="flex items-center gap-2 mb-4">
+        <BookOpen className="w-4 h-4 text-[var(--color-neon)]" />
+        <h3 className="font-semibold">Scientific references</h3>
+        <span className="text-xs text-[var(--color-muted)] tabular-nums">({studies.length})</span>
+      </div>
+      <ol className="space-y-3">
+        {studies.map((study, i) => (
+          <li key={study.pmid} className="flex gap-3 text-sm">
+            <span className="font-mono text-xs text-[var(--color-muted)] pt-0.5 w-4 shrink-0">{i + 1}</span>
+            <div>
+              <p className="text-[var(--color-foreground)]/85 leading-snug">{study.title}</p>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] mt-1">
+                <span>
+                  <em>{study.journal}</em>, {study.year}
+                </span>
                 <a
                   href={`https://pubmed.ncbi.nlm.nih.gov/${study.pmid}/`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[var(--color-neon)] hover:underline"
+                  className="inline-flex items-center gap-1 text-[var(--color-neon)] hover:underline font-mono"
                 >
-                  PMID: {study.pmid}
-                  <ExternalLink className="w-3 h-3" />
+                  PMID {study.pmid} <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
-            </li>
-          ))}
-        </ul>
-      )}
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   );
 }

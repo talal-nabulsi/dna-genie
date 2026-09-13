@@ -1,18 +1,53 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { DemoProvider } from "@/contexts/DemoContext";
 import AnalyticsProvider from "@/components/AnalyticsProvider";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
 
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
+
+const SITE_URL = "https://dnagenie.app";
+
 export const metadata: Metadata = {
-  title: "DNA Genie — Decode Your DNA",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "DNA Genie — Decode your genome in the browser",
+    template: "%s · DNA Genie",
+  },
   description:
-    "Upload your 23andMe or AncestryDNA raw data and discover 40+ genetic traits. 100% client-side — your DNA never touches a server.",
+    "Upload a 23andMe or AncestryDNA export and discover 40 research-backed genetic traits. Parsing happens entirely in your browser — your raw DNA never touches a server.",
+  keywords: ["DNA", "23andMe", "AncestryDNA", "genetics", "SNP", "traits", "privacy", "genome"],
+  authors: [{ name: "Talal Nabulsi", url: "https://github.com/talal-nabulsi" }],
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "DNA Genie",
+    title: "DNA Genie — Decode your genome in the browser",
+    description:
+      "40 research-backed traits from your 23andMe or AncestryDNA file. 100% client-side parsing. Explore an interactive 3D genome.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DNA Genie — Decode your genome in the browser",
+    description:
+      "40 research-backed traits from your 23andMe or AncestryDNA file. 100% client-side parsing.",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#060907",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -21,11 +56,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} font-sans antialiased`}>
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+      <body className="font-sans antialiased">
         <AuthProvider>
-          <AnalyticsProvider />
-          {children}
+          <DemoProvider>
+            <AnalyticsProvider />
+            {children}
+          </DemoProvider>
         </AuthProvider>
       </body>
     </html>

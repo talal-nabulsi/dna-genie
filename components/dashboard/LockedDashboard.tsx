@@ -4,41 +4,27 @@ import { ALL_TRAITS } from "@/lib/traits/traitDatabase";
 import { CATEGORIES } from "@/lib/traits/categories";
 import TraitCardLocked from "./TraitCardLocked";
 import UploadCTABanner from "./UploadCTABanner";
-import * as LucideIcons from "lucide-react";
-
-function getCategoryIcon(iconName: string) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const icons = LucideIcons as any;
-  return (icons[iconName] || LucideIcons.Sparkles) as React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
-}
+import CategoryIcon from "@/components/ui/CategoryIcon";
 
 export default function LockedDashboard() {
   return (
     <div>
       <UploadCTABanner />
-
       {CATEGORIES.map((category) => {
         const traits = ALL_TRAITS.filter((t) => t.category === category.id);
         if (traits.length === 0) return null;
-
-        const Icon = getCategoryIcon(category.icon);
-
         return (
-          <div key={category.id} className="mb-10">
-            <div className="flex items-center gap-3 mb-4 px-1">
-              <Icon
-                className="w-5 h-5 opacity-40"
-                style={{ color: category.color } as React.CSSProperties}
-              />
-              <h2 className="text-xl font-bold opacity-40">{category.name}</h2>
+          <section key={category.id} className="mb-10">
+            <div className="flex items-center gap-2.5 mb-4 opacity-50">
+              <CategoryIcon name={category.icon} className="w-4 h-4" style={{ color: category.color }} />
+              <h2 className="font-semibold">{category.name}</h2>
             </div>
-
-            <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-2 px-1">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {traits.map((trait) => (
                 <TraitCardLocked key={trait.id} trait={trait} />
               ))}
             </div>
-          </div>
+          </section>
         );
       })}
     </div>

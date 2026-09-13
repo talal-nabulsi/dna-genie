@@ -1,5 +1,5 @@
 import { TraitDefinition, UserTraitResult, VariantInterpretation } from "./types";
-import { ALL_TRAITS, RSID_TO_TRAITS } from "./traitDatabase";
+import { ALL_TRAITS } from "./traitDatabase";
 
 function normalizeGenotype(genotype: string): string {
   const g = genotype.toUpperCase().replace(/\s/g, "");

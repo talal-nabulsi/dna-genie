@@ -1,60 +1,66 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useDemo } from "@/contexts/DemoContext";
 import { getUserSNPs } from "@/lib/firebase/firestore";
 
+/**
+ * Resolves the SNP map to interpret. Signed-in users read from Firestore;
+ * demo visitors use the sample genome (or a file they parsed locally this session).
+ */
 export function useUserSNPs() {
   const { user } = useAuth();
-  const [snps, setSNPs] = useState<Map<string, string> | null>(null);
+  const { isDemo, ready, demoSNPs } = useDemo();
+  const [remote, setRemote] = useState<Map<string, string> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!user) {
-      setSNPs(null);
-      setLoading(false);
-      return;
-    }
-
-    let cancelled = false;
-
-    async function fetchSNPs() {
-      try {
-        setLoading(true);
-        const data = await getUserSNPs(user!.uid);
-        if (!cancelled) {
-          setSNPs(data);
-          setError(null);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError("Failed to load your genetic data");
-          console.error(err);
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    }
-
-    fetchSNPs();
-    return () => { cancelled = true; };
-  }, [user]);
-
-  const refetch = async () => {
+  const fetchRemote = useCallback(async () => {
     if (!user) return;
     setLoading(true);
     try {
       const data = await getUserSNPs(user.uid);
-      setSNPs(data);
+      setRemote(data);
       setError(null);
     } catch (err) {
-      setError("Failed to reload your genetic data");
+      setError("Failed to load your genetic data");
       console.error(err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
-  return { snps, loading, error, refetch };
+  useEffect(() => {
+    if (!ready) return;
+    if (user) {
+      let cancelled = false;
+      (async () => {
+        setLoading(true);
+        try {
+          const data = await getUserSNPs(user.uid);
+          if (!cancelled) {
+            setRemote(data);
+            setError(null);
+          }
+        } catch (err) {
+          if (!cancelled) {
+            setError("Failed to load your genetic data");
+            console.error(err);
+          }
+        } finally {
+          if (!cancelled) setLoading(false);
+        }
+      })();
+      return () => {
+        cancelled = true;
+      };
+    }
+    setRemote(null);
+    setLoading(false);
+  }, [user, ready]);
+
+  const snps = user ? remote : isDemo ? demoSNPs : null;
+
+  return { snps, loading: loading || !ready, error, refetch: fetchRemote };
 }

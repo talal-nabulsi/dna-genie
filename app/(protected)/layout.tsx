@@ -11,7 +11,7 @@ export default function ProtectedLayout({
     <AuthGuard>
       <div className="min-h-screen flex flex-col bg-[var(--color-background)]">
         <Navbar />
-        <main className="flex-1 px-6 py-8 max-w-7xl mx-auto w-full">
+        <main className="flex-1 px-4 sm:px-6 py-8 sm:py-10 max-w-7xl mx-auto w-full">
           {children}
         </main>
         <Footer />

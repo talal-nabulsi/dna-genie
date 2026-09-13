@@ -1,12 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
-import NeonButton from "@/components/ui/NeonButton";
-import GlassCard from "@/components/ui/GlassCard";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { ArrowLeft, FlaskConical } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useDemo } from "@/contexts/DemoContext";
 import Logo from "@/components/layout/Logo";
-import { Chrome } from "lucide-react";
+
+const HeroHelix = dynamic(() => import("@/components/three/HeroHelix"), { ssr: false });
+
+function GoogleIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="w-4.5 h-4.5" aria-hidden="true">
+      <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.3-1.6 3.7-5.4 3.7-3.3 0-5.9-2.7-5.9-6s2.6-6 5.9-6c1.9 0 3.1.8 3.8 1.5l2.6-2.5C16.8 3.2 14.6 2.2 12 2.2 6.6 2.2 2.2 6.6 2.2 12S6.6 21.8 12 21.8c5.7 0 9.4-4 9.4-9.6 0-.6-.1-1.1-.2-1.6H12z" />
+    </svg>
+  );
+}
 
 export default function AuthForm() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -15,123 +26,100 @@ export default function AuthForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signInWithGoogle, signInWithEmail, signUpWithEmail } = useAuth();
+  const { exitDemo } = useDemo();
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  const clean = (m: string) => m.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim();
 
-    try {
-      if (isSignUp) {
-        await signUpWithEmail(email, password);
-      } else {
-        await signInWithEmail(email, password);
-      }
-      router.push("/dashboard");
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Authentication failed";
-      setError(message.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim());
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogle = async () => {
+  const run = async (fn: () => Promise<void>) => {
     setError("");
     setLoading(true);
     try {
-      await signInWithGoogle();
+      await fn();
+      exitDemo();
       router.push("/dashboard");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Google sign-in failed";
-      setError(message.replace("Firebase: ", "").replace(/\(auth\/.*\)/, "").trim());
+      setError(clean(err instanceof Error ? err.message : "Authentication failed"));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-6 py-12">
-      <GlassCard hoverable={false} className="w-full max-w-md p-8">
-        <div className="flex justify-center mb-8">
+    <div className="min-h-screen grid lg:grid-cols-2 bg-[var(--color-background)]">
+      <div className="relative flex flex-col px-6 py-8 sm:px-12">
+        <div className="flex items-center justify-between">
           <Logo />
+          <Link href="/" className="btn-ghost !text-sm">
+            <ArrowLeft className="w-4 h-4" /> Home
+          </Link>
         </div>
 
-        <h2 className="text-2xl font-bold text-center mb-2">
-          {isSignUp ? "Create Account" : "Welcome Back"}
-        </h2>
-        <p className="text-sm text-[var(--color-muted)] text-center mb-8">
-          {isSignUp ? "Sign up to decode your DNA" : "Sign in to view your traits"}
-        </p>
-
-        {/* Google Sign In */}
-        <button
-          onClick={handleGoogle}
-          disabled={loading}
-          className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors mb-6 text-sm font-medium disabled:opacity-50"
-        >
-          <Chrome className="w-5 h-5" />
-          Continue with Google
-        </button>
-
-        <div className="flex items-center gap-4 mb-6">
-          <div className="flex-1 h-px bg-[var(--color-glass-border)]" />
-          <span className="text-xs text-[var(--color-muted)]">or</span>
-          <div className="flex-1 h-px bg-[var(--color-glass-border)]" />
-        </div>
-
-        {/* Email/Password Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm text-[var(--color-muted)] mb-1.5">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--color-glass-border)] focus:border-[var(--color-neon)] focus:outline-none transition-colors text-sm"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm text-[var(--color-muted)] mb-1.5">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-[var(--color-glass-border)] focus:border-[var(--color-neon)] focus:outline-none transition-colors text-sm"
-              placeholder="At least 6 characters"
-            />
-          </div>
-
-          {error && (
-            <p className="text-sm text-red-400 bg-red-400/10 px-4 py-2 rounded-lg">
-              {error}
+        <div className="flex-1 flex items-center justify-center py-12">
+          <div className="w-full max-w-sm">
+            <h1 className="text-3xl font-bold mb-2">{isSignUp ? "Create your account" : "Welcome back"}</h1>
+            <p className="text-sm text-[var(--color-muted)] mb-8">
+              {isSignUp ? "Save your 44 trait genotypes — never the raw file." : "Sign in to see your saved traits."}
             </p>
-          )}
 
-          <NeonButton type="submit" disabled={loading} className="w-full">
-            {loading ? "Loading..." : isSignUp ? "Create Account" : "Sign In"}
-          </NeonButton>
-        </form>
+            <button
+              onClick={() => run(signInWithGoogle)}
+              disabled={loading}
+              className="btn-neon-outline w-full !py-3 mb-5"
+            >
+              <GoogleIcon /> Continue with Google
+            </button>
 
-        <p className="text-sm text-center text-[var(--color-muted)] mt-6">
-          {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-          <button
-            onClick={() => {
-              setIsSignUp(!isSignUp);
-              setError("");
-            }}
-            className="text-[var(--color-neon)] hover:underline"
-          >
-            {isSignUp ? "Sign In" : "Sign Up"}
-          </button>
-        </p>
-      </GlassCard>
+            <div className="flex items-center gap-4 mb-5">
+              <div className="flex-1 h-px bg-[var(--color-glass-border)]" />
+              <span className="text-xs text-[var(--color-muted)]">or with email</span>
+              <div className="flex-1 h-px bg-[var(--color-glass-border)]" />
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                run(() => (isSignUp ? signUpWithEmail(email, password) : signInWithEmail(email, password)));
+              }}
+              className="space-y-4"
+            >
+              <div>
+                <label htmlFor="email" className="block text-sm text-[var(--color-muted)] mb-1.5">Email</label>
+                <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="input" placeholder="you@example.com" autoComplete="email" />
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-sm text-[var(--color-muted)] mb-1.5">Password</label>
+                <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} className="input" placeholder="At least 6 characters" autoComplete={isSignUp ? "new-password" : "current-password"} />
+              </div>
+              {error && <p className="text-sm text-red-400 bg-red-400/10 border border-red-400/20 px-4 py-2.5 rounded-xl">{error}</p>}
+              <button type="submit" disabled={loading} className="btn-neon w-full !py-3">
+                {loading ? "One moment…" : isSignUp ? "Create account" : "Sign in"}
+              </button>
+            </form>
+
+            <p className="text-sm text-center text-[var(--color-muted)] mt-6">
+              {isSignUp ? "Already have an account?" : "New here?"}{" "}
+              <button onClick={() => { setIsSignUp(!isSignUp); setError(""); }} className="text-[var(--color-neon)] hover:underline font-medium">
+                {isSignUp ? "Sign in" : "Create an account"}
+              </button>
+            </p>
+
+            <Link href="/demo" className="mt-8 flex items-center justify-center gap-2 text-sm text-[var(--color-muted)] hover:text-[var(--color-foreground)] transition-colors">
+              <FlaskConical className="w-4 h-4" /> Or explore the sample genome without an account
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden lg:block relative overflow-hidden border-l border-[var(--color-glass-border)] noise">
+        <div className="absolute inset-0 surface-grid" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(57,255,20,0.14),transparent_60%)]" />
+        <HeroHelix className="absolute inset-0" />
+        <div className="absolute bottom-10 left-10 right-10">
+          <p className="text-2xl font-semibold max-w-sm">“Only 44 of my 600,000 markers ever left the browser.”</p>
+          <p className="text-sm text-[var(--color-muted)] mt-2">That&apos;s the whole design.</p>
+        </div>
+      </div>
     </div>
   );
 }

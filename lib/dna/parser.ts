@@ -1,6 +1,6 @@
 "use client";
 
-import { DNAFormat, ParseProgress, ParseResult, ProgressCallback } from "./types";
+import { DNAFormat, ParseResult, ProgressCallback } from "./types";
 import { ALL_REQUIRED_RSIDS } from "@/lib/traits/traitDatabase";
 import { is23andMeFormat, parse23andMeLine } from "./parsers/twentyThreeAndMe";
 import { isAncestryDnaFormat, parseAncestryDnaLine } from "./parsers/ancestryDna";

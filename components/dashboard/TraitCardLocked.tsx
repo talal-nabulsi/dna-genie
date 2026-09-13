@@ -1,35 +1,24 @@
 "use client";
 
 import { TraitDefinition } from "@/lib/traits/types";
-import GlassCard from "@/components/ui/GlassCard";
+import { CATEGORY_MAP } from "@/lib/traits/categories";
 import { Lock } from "lucide-react";
 
-interface TraitCardLockedProps {
-  trait: TraitDefinition;
-}
-
-export default function TraitCardLocked({ trait }: TraitCardLockedProps) {
+export default function TraitCardLocked({ trait }: { trait: TraitDefinition }) {
+  const category = CATEGORY_MAP.get(trait.category);
   return (
-    <GlassCard
-      hoverable={false}
-      className="min-w-[240px] max-w-[240px] h-[280px] flex flex-col justify-between flex-shrink-0 trait-card-locked"
-    >
-      <div>
-        <p className="text-xs text-[var(--color-muted)] mb-1 font-mono tracking-wide">
-          {trait.gene}
-        </p>
-        <h3 className="text-base font-semibold mb-1 leading-snug">
-          {trait.name}
-        </h3>
-        <p className="text-xs text-[var(--color-muted)] leading-relaxed line-clamp-3 mb-3">
-          {trait.subtitle}
-        </p>
+    <div className="glass-card p-5 flex flex-col h-full trait-card-locked">
+      <div className="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <p className="font-mono text-[11px] tracking-wide text-[var(--color-muted)] mb-1">{trait.gene}</p>
+          <h3 className="font-semibold leading-snug">{trait.name}</h3>
+        </div>
+        <span className="w-2 h-2 mt-1.5 rounded-full shrink-0" style={{ background: category?.color }} />
       </div>
-
-      <div className="flex items-center gap-2">
-        <Lock className="w-3.5 h-3.5 text-[var(--color-muted)]" />
-        <span className="text-xs text-[var(--color-muted)]">Upload DNA to unlock</span>
-      </div>
-    </GlassCard>
+      <p className="text-sm text-[var(--color-muted)] leading-relaxed line-clamp-2">{trait.subtitle}</p>
+      <span className="mt-auto pt-4 flex items-center gap-1.5 text-xs text-[var(--color-muted)]">
+        <Lock className="w-3.5 h-3.5" /> Upload DNA to unlock
+      </span>
+    </div>
   );
 }

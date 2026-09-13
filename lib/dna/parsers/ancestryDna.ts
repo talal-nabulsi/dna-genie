@@ -1,5 +1,3 @@
-import { ALL_REQUIRED_RSIDS } from "@/lib/traits/traitDatabase";
-
 /**
  * Parse a single line from AncestryDNA raw data format.
  * Format: rsid \t chromosome \t position \t allele1 \t allele2
