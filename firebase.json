@@ -1,0 +1,10 @@
+{
+  "apphosting": {
+    "backendId": "dna-genie",
+    "rootDir": "/",
+    "ignore": ["node_modules", ".git", ".next", ".env*", "*.log"]
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  }
+}

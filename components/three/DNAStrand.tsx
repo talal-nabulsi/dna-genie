@@ -146,7 +146,7 @@ export default function DNAStrand({
         onPointerOut={() => interactive && onHover?.(null)}
       >
         <cylinderGeometry args={[0.062, 0.062, 1, 12]} />
-        <meshStandardMaterial color="#ffffff" metalness={0.05} roughness={0.5} />
+        <meshStandardMaterial color="#e2e2e2" metalness={0.05} roughness={0.55} />
       </instancedMesh>
     </group>
   );

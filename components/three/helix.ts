@@ -5,10 +5,10 @@ export type Base = "A" | "T" | "G" | "C";
 export const COMPLEMENT: Record<Base, Base> = { A: "T", T: "A", G: "C", C: "G" };
 
 export const BASE_COLORS: Record<Base, string> = {
-  A: "#22e3a0",
-  T: "#19d4c6",
-  G: "#b6f542",
-  C: "#3ab8ff",
+  A: "#12d38c",
+  T: "#0fbfb4",
+  G: "#a3e02a",
+  C: "#27a4f2",
 };
 
 export const BASE_NAMES: Record<Base, string> = {
