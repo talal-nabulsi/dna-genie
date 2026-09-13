@@ -11,7 +11,7 @@ import TraitDetailView from "@/components/traits/TraitDetailView";
 function Empty({ title, body, href, cta }: { title: string; body: string; href: string; cta: string }) {
   return (
     <div className="max-w-xl mx-auto text-center py-24">
-      <h1 className="text-2xl font-bold mb-3">{title}</h1>
+      <h1 className="text-2xl font-semibold mb-3">{title}</h1>
       <p className="text-[var(--color-muted)] mb-6">{body}</p>
       <Link href={href} className="btn-neon-outline">
         <ArrowLeft className="w-4 h-4" /> {cta}

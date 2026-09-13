@@ -15,7 +15,7 @@ export default function GenotypeResult({ genotype, interpretation }: GenotypeRes
 
   return (
     <div className="glass-card p-6 sm:p-8 relative overflow-hidden">
-      <div className="absolute -top-24 -right-24 w-72 h-72 bg-[radial-gradient(circle,rgba(57,255,20,0.12),transparent_60%)]" />
+      <div className="absolute -top-24 -right-24 w-72 h-72 bg-[radial-gradient(circle,rgba(143,124,255,0.12),transparent_60%)]" />
       <div className="relative flex flex-col sm:flex-row sm:items-center gap-6">
         <div>
           <p className="eyebrow !text-[10px] mb-3">Your genotype</p>
@@ -26,7 +26,7 @@ export default function GenotypeResult({ genotype, interpretation }: GenotypeRes
               ))}
             </div>
           ) : (
-            <p className="font-mono text-lg sm:text-xl font-semibold text-glow leading-snug break-words">{genotype}</p>
+            <p className="font-mono text-lg sm:text-xl font-medium text-glow leading-snug break-words">{genotype}</p>
           )}
         </div>
         <div className="sm:ml-auto sm:text-right">

@@ -7,9 +7,9 @@ export function HelixMark({ className = "w-7 h-7" }: { className?: string }) {
     <svg viewBox="0 0 32 32" fill="none" className={className} aria-hidden="true">
       <defs>
         <linearGradient id="helix-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#b9ff9c" />
-          <stop offset="0.5" stopColor="#39ff14" />
-          <stop offset="1" stopColor="#34d399" />
+          <stop stopColor="#d9d2ff" />
+          <stop offset="0.5" stopColor="#8f7cff" />
+          <stop offset="1" stopColor="#d896c8" />
         </linearGradient>
       </defs>
       <path d="M9 3c0 8 14 10 14 18s-14 10-14 8" stroke="url(#helix-grad)" strokeWidth="2.4" strokeLinecap="round" />
@@ -26,7 +26,7 @@ export default function Logo({ compact = false }: { compact?: boolean }) {
         <HelixMark />
         <span className="absolute inset-0 blur-md bg-[var(--color-neon)] opacity-0 group-hover:opacity-40 transition-opacity rounded-full" />
       </span>
-      {!compact && <span className="text-lg font-bold tracking-tight">DNA Genie</span>}
+      {!compact && <span className="text-lg font-semibold tracking-tight">DNA Genie</span>}
     </Link>
   );
 }

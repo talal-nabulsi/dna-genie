@@ -101,7 +101,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto">
         <Reveal className="max-w-2xl mb-14">
           <p className="eyebrow mb-3">How it works</p>
-          <h2 className="text-3xl sm:text-5xl font-bold">Three steps. Nothing leaves your tab.</h2>
+          <h2 className="text-3xl sm:text-5xl font-semibold">Three steps. Nothing leaves your tab.</h2>
           <p className="mt-4 text-[var(--color-muted)] text-lg">
             The whole pipeline — detection, parsing, interpretation — runs client-side. The server only ever sees a login.
           </p>
@@ -112,7 +112,7 @@ export default function HowItWorks() {
             <Reveal key={s.title} delay={i * 0.1}>
               <li className="glass-card is-interactive p-6 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-5">
-                  <span className="w-11 h-11 rounded-xl bg-[rgba(57,255,20,0.1)] border border-[rgba(57,255,20,0.2)] flex items-center justify-center">
+                  <span className="w-11 h-11 rounded-xl bg-[rgba(143,124,255,0.1)] border border-[rgba(143,124,255,0.2)] flex items-center justify-center">
                     <s.icon className="w-5 h-5 text-[var(--color-neon)]" />
                   </span>
                   <span className="font-mono text-xs text-[var(--color-muted)]">0{i + 1}</span>

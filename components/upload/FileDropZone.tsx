@@ -28,12 +28,12 @@ export default function FileDropZone({ onFileSelected, disabled }: FileDropZoneP
     <div
       {...getRootProps()}
       className={`glass-card p-10 sm:p-14 text-center transition-all outline-none ${
-        isDragActive ? "!border-[var(--color-neon)] bg-[rgba(57,255,20,0.05)] scale-[1.01]" : ""
+        isDragActive ? "!border-[var(--color-neon)] bg-[rgba(143,124,255,0.05)] scale-[1.01]" : ""
       } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer is-interactive"}`}
     >
       <input {...getInputProps()} aria-label="Choose a DNA raw data file" />
       <div className="flex justify-center mb-5">
-        <div className="w-16 h-16 rounded-2xl bg-[rgba(57,255,20,0.1)] border border-[rgba(57,255,20,0.2)] flex items-center justify-center">
+        <div className="w-16 h-16 rounded-2xl bg-[rgba(143,124,255,0.1)] border border-[rgba(143,124,255,0.2)] flex items-center justify-center">
           {isDragActive ? <FileText className="w-7 h-7 text-[var(--color-neon)] animate-bounce" /> : <Upload className="w-7 h-7 text-[var(--color-neon)]" />}
         </div>
       </div>

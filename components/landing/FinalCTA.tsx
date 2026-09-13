@@ -8,9 +8,9 @@ export default function FinalCTA() {
       <Reveal>
         <div className="relative max-w-7xl mx-auto glass-card overflow-hidden px-6 py-16 sm:px-16 sm:py-24 text-center noise">
           <div className="absolute inset-0 surface-grid opacity-70" />
-          <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(57,255,20,0.2),transparent_60%)]" />
+          <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(143,124,255,0.2),transparent_60%)]" />
           <div className="relative">
-            <h2 className="text-3xl sm:text-5xl font-bold max-w-2xl mx-auto">Ready to meet your genome?</h2>
+            <h2 className="text-3xl sm:text-5xl font-semibold max-w-2xl mx-auto">Ready to meet your genome?</h2>
             <p className="mt-4 text-[var(--color-muted)] text-lg max-w-xl mx-auto">
               Start with the sample genome — no account, no upload. Bring your own file whenever you&apos;re ready.
             </p>

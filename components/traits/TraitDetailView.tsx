@@ -33,7 +33,7 @@ export default function TraitDetailView({ result }: { result: UserTraitResult })
             <CategoryIcon name={category.icon} className="w-3.5 h-3.5" /> {category.name}
           </span>
         )}
-        <h1 className="text-3xl sm:text-5xl font-bold">{trait.name}</h1>
+        <h1 className="text-3xl sm:text-5xl font-semibold">{trait.name}</h1>
         <p className="text-lg text-[var(--color-muted)] mt-2">{trait.subtitle}</p>
       </header>
 
@@ -45,7 +45,7 @@ export default function TraitDetailView({ result }: { result: UserTraitResult })
             <h3 className="font-semibold mb-3">About this trait</h3>
             <p className="text-[15px] text-[var(--color-foreground)]/80 leading-relaxed">{trait.description}</p>
             {trait.funFact && (
-              <div className="flex items-start gap-3 mt-5 p-4 rounded-xl bg-[rgba(57,255,20,0.05)] border border-[rgba(57,255,20,0.12)]">
+              <div className="flex items-start gap-3 mt-5 p-4 rounded-xl bg-[rgba(143,124,255,0.05)] border border-[rgba(143,124,255,0.12)]">
                 <Lightbulb className="w-4 h-4 text-[var(--color-neon)] shrink-0 mt-0.5" />
                 <p className="text-sm text-[var(--color-foreground)]/75 leading-relaxed">
                   <strong className="text-[var(--color-neon)] font-semibold">Fun fact.</strong> {trait.funFact}

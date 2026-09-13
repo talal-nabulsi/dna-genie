@@ -52,7 +52,7 @@ export default function Navbar() {
             </>
           ) : isDemo ? (
             <>
-              <span className="pill !border-[rgba(57,255,20,0.35)] !text-[var(--color-foreground)]">
+              <span className="pill !border-[rgba(143,124,255,0.35)] !text-[var(--color-foreground)]">
                 <FlaskConical className="w-3.5 h-3.5 text-[var(--color-neon)]" />
                 <span className="hidden sm:inline">Sample genome</span>
                 <span className="sm:hidden">Demo</span>

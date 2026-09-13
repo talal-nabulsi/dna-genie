@@ -77,7 +77,7 @@ function HeroScene({ reduced }: { reduced: boolean }) {
   return (
     <>
       <SceneLights />
-      <fog attach="fog" args={["#060907", 7, 17]} />
+      <fog attach="fog" args={["#0a0a14", 7, 17]} />
       <group ref={group} rotation={[0.22, 0, -0.42]}>
         <DNAStrand cfg={HERO_CFG} hovered={hovered} onHover={setHovered} />
         {hoverInfo && (
@@ -95,7 +95,7 @@ function HeroScene({ reduced }: { reduced: boolean }) {
           </Html>
         )}
       </group>
-      {!reduced && <Sparkles count={90} scale={[9, 16, 9]} size={1.8} speed={0.25} opacity={0.45} color="#7dff5e" />}
+      {!reduced && <Sparkles count={90} scale={[9, 16, 9]} size={1.8} speed={0.25} opacity={0.45} color="#c4b5fd" />}
     </>
   );
 }
@@ -107,7 +107,7 @@ export default function HeroHelix({ className = "" }: { className?: string }) {
     <HelixCanvas
       className={className}
       camera={{ position: [0, 0, 10.5], fov: 38, near: 0.1, far: 60 }}
-      fallback={<div className="w-full h-full rounded-3xl bg-[radial-gradient(circle_at_50%_40%,rgba(57,255,20,0.18),transparent_60%)]" />}
+      fallback={<div className="w-full h-full rounded-3xl bg-[radial-gradient(circle_at_50%_40%,rgba(143,124,255,0.18),transparent_60%)]" />}
     >
       <HeroScene reduced={reduced} />
     </HelixCanvas>

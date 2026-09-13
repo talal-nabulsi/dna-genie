@@ -57,7 +57,7 @@ export default function AuthForm() {
 
         <div className="flex-1 flex items-center justify-center py-12">
           <div className="w-full max-w-sm">
-            <h1 className="text-3xl font-bold mb-2">{isSignUp ? "Create your account" : "Welcome back"}</h1>
+            <h1 className="text-3xl font-semibold mb-2">{isSignUp ? "Create your account" : "Welcome back"}</h1>
             <p className="text-sm text-[var(--color-muted)] mb-8">
               {isSignUp ? "Save your 44 trait genotypes — never the raw file." : "Sign in to see your saved traits."}
             </p>
@@ -113,7 +113,7 @@ export default function AuthForm() {
 
       <div className="hidden lg:block relative overflow-hidden border-l border-[var(--color-glass-border)] noise">
         <div className="absolute inset-0 surface-grid" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(57,255,20,0.14),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_50%,rgba(143,124,255,0.14),transparent_60%)]" />
         <HeroHelix className="absolute inset-0" />
         <div className="absolute bottom-10 left-10 right-10">
           <p className="text-2xl font-semibold max-w-sm">“Only 44 of my 600,000 markers ever left the browser.”</p>

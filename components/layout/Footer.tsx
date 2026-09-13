@@ -32,7 +32,7 @@ export default function Footer() {
         <div className="max-w-sm">
           <div className="flex items-center gap-2.5 mb-4">
             <HelixMark className="w-6 h-6" />
-            <span className="font-bold tracking-tight">DNA Genie</span>
+            <span className="font-semibold tracking-tight">DNA Genie</span>
           </div>
           <p className="text-sm text-[var(--color-muted)] leading-relaxed">
             Privacy-first genetic trait discovery. Your raw file is parsed in the browser and never uploaded; only 44 trait-relevant genotypes are ever stored.

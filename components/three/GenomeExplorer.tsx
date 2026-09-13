@@ -37,7 +37,7 @@ function useMarkers(): Marker[] {
       const index = Math.round(((i + 0.5) / n) * (EXPLORER_CFG.pairs - 1));
       const anchor = strandPoint(index, 0, EXPLORER_CFG);
       const position = anchor.clone().add(radialDirection(index, EXPLORER_CFG).multiplyScalar(0.62));
-      return { trait, index, anchor, position, color: CATEGORY_MAP.get(trait.category)?.color ?? "#39ff14" };
+      return { trait, index, anchor, position, color: CATEGORY_MAP.get(trait.category)?.color ?? "#8f7cff" };
     });
   }, []);
 }
@@ -204,7 +204,7 @@ function ExplorerScene({ markers, selectedId, hoveredId, category, onHover, onSe
   return (
     <>
       <SceneLights />
-      <fog attach="fog" args={["#060907", 18, 42]} />
+      <fog attach="fog" args={["#0a0a14", 18, 42]} />
       <OrbitControls
         ref={controls}
         enablePan={false}
@@ -270,7 +270,7 @@ export default function GenomeExplorer({ compact = false, initialTraitId = null,
         <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar flex-1 min-w-0">
           <button
             onClick={() => setCategory(null)}
-            className={`pill shrink-0 transition-colors ${!category ? "!border-[rgba(57,255,20,0.5)] !text-[var(--color-foreground)] !bg-[rgba(57,255,20,0.08)]" : "hover:text-[var(--color-foreground)]"}`}
+            className={`pill shrink-0 transition-colors ${!category ? "!border-[rgba(143,124,255,0.5)] !text-[var(--color-foreground)] !bg-[rgba(143,124,255,0.08)]" : "hover:text-[var(--color-foreground)]"}`}
           >
             All traits
           </button>
@@ -299,7 +299,7 @@ export default function GenomeExplorer({ compact = false, initialTraitId = null,
       <div className={`grid grid-cols-1 lg:grid-cols-[1fr_320px] ${compact ? "" : "flex-1 min-h-0"}`}>
         {/* Scene */}
         <div className={`relative ${compact ? "h-[420px] sm:h-[520px]" : "h-[55vh] lg:h-full min-h-[420px]"}`}>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(57,255,20,0.07),transparent_65%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(143,124,255,0.07),transparent_65%)]" />
           <HelixCanvas
             className="absolute inset-0"
             camera={{ position: HOME_POSITION.toArray(), fov: 40, near: 0.1, far: 80 }}
@@ -338,7 +338,7 @@ export default function GenomeExplorer({ compact = false, initialTraitId = null,
                 <span className="pill mb-3" style={{ borderColor: `${selectedCategory.color}66`, color: selectedCategory.color, background: `${selectedCategory.color}14` }}>
                   {selectedCategory.name}
                 </span>
-                <h3 className="text-lg font-bold leading-tight">{selected.trait.name}</h3>
+                <h3 className="text-lg font-semibold leading-tight">{selected.trait.name}</h3>
                 <p className="text-sm text-[var(--color-muted)] mt-1">{selected.trait.subtitle}</p>
                 <p className="font-mono text-[11px] text-[var(--color-muted)] mt-2 break-all">
                   {selected.trait.gene} · {selected.trait.rsids.join(", ")}

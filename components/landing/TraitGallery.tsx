@@ -13,7 +13,7 @@ export default function TraitGallery() {
       <div className="max-w-7xl mx-auto">
         <Reveal className="max-w-2xl mb-14">
           <p className="eyebrow mb-3">The panel</p>
-          <h2 className="text-3xl sm:text-5xl font-bold">40 traits, 8 categories, every one cited.</h2>
+          <h2 className="text-3xl sm:text-5xl font-semibold">40 traits, 8 categories, every one cited.</h2>
           <p className="mt-4 text-[var(--color-muted)] text-lg">
             No polygenic scores or black-box risk numbers — just well-studied single variants with plain-language interpretations.
           </p>

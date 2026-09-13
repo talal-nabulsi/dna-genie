@@ -45,7 +45,7 @@ export default function UploadPage() {
       <div>
         <div className="mb-8">
           <p className="eyebrow mb-2">Upload</p>
-          <h1 className="text-3xl sm:text-4xl font-bold">Read your raw DNA file</h1>
+          <h1 className="text-3xl sm:text-4xl font-semibold">Read your raw DNA file</h1>
           <p className="text-[var(--color-muted)] mt-2">
             23andMe or AncestryDNA exports. {user ? "Results are saved to your account." : "In demo mode, results stay in this tab and are never saved."}
           </p>

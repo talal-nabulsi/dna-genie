@@ -21,9 +21,9 @@ export default function DashboardHeader({ results, categoryCount }: { results: U
     <div className="mb-8 grid lg:grid-cols-[1fr_auto] gap-6 lg:items-end">
       <div>
         <p className="eyebrow mb-2">Dashboard</p>
-        <h1 className="text-3xl sm:text-4xl font-bold">Your genetic traits</h1>
+        <h1 className="text-3xl sm:text-4xl font-semibold">Your genetic traits</h1>
         <p className="text-[var(--color-muted)] mt-2">
-          <span className="text-[var(--color-foreground)] font-semibold tabular-nums">{results.length}</span> traits interpreted across{" "}
+          <span className="text-[var(--color-foreground)] font-medium tabular-nums">{results.length}</span> traits interpreted across{" "}
           <span className="text-[var(--color-foreground)] font-semibold tabular-nums">{categoryCount}</span> categories.
         </p>
       </div>

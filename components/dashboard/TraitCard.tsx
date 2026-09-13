@@ -18,7 +18,7 @@ export default function TraitCard({ result }: TraitCardProps) {
     <Link
       href={`/traits/${trait.id}`}
       className="glass-card is-interactive p-5 flex flex-col h-full group focus-visible:outline-none"
-      style={{ ["--cat" as string]: category?.color ?? "#39ff14" }}
+      style={{ ["--cat" as string]: category?.color ?? "#8f7cff" }}
     >
       <span className="absolute top-0 left-5 right-5 h-px bg-gradient-to-r from-transparent via-[var(--cat)] to-transparent opacity-70" />
       <div className="flex items-start justify-between gap-3 mb-3">

@@ -37,7 +37,7 @@ export default function FAQSection() {
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-20">
         <Reveal>
           <p className="eyebrow mb-3">FAQ</p>
-          <h2 className="text-3xl sm:text-5xl font-bold">Straight answers.</h2>
+          <h2 className="text-3xl sm:text-5xl font-semibold">Straight answers.</h2>
           <p className="mt-4 text-[var(--color-muted)] text-lg">Genetics is easy to overstate. Here&apos;s where the lines are.</p>
         </Reveal>
 

@@ -22,7 +22,7 @@ export default function PrivacySection() {
       <div className="max-w-7xl mx-auto">
         <Reveal className="max-w-2xl mb-14">
           <p className="eyebrow mb-3">Privacy by architecture</p>
-          <h2 className="text-3xl sm:text-5xl font-bold">0.007% of your file. That&apos;s the whole footprint.</h2>
+          <h2 className="text-3xl sm:text-5xl font-semibold">0.007% of your file. That&apos;s the whole footprint.</h2>
           <p className="mt-4 text-[var(--color-muted)] text-lg">
             Most consumer genetics tools ask you to upload the entire file. DNA Genie was designed so it can&apos;t.
           </p>
@@ -32,7 +32,7 @@ export default function PrivacySection() {
           <div className="glass-card p-2 sm:p-3 mb-6">
             <div className="grid md:grid-cols-3 gap-2 sm:gap-3">
               {FLOW.map((f, i) => (
-                <div key={f.title} className={`relative rounded-2xl p-5 sm:p-6 ${f.tone === "neon" ? "bg-[rgba(57,255,20,0.06)] border border-[rgba(57,255,20,0.25)]" : "bg-white/[0.025] border border-[var(--color-glass-border)]"}`}>
+                <div key={f.title} className={`relative rounded-2xl p-5 sm:p-6 ${f.tone === "neon" ? "bg-[rgba(143,124,255,0.06)] border border-[rgba(143,124,255,0.25)]" : "bg-white/[0.025] border border-[var(--color-glass-border)]"}`}>
                   <div className="flex items-center justify-between mb-4">
                     <f.icon className={`w-5 h-5 ${f.tone === "neon" ? "text-[var(--color-neon)]" : "text-[var(--color-muted-strong)]"}`} />
                     <span className="font-mono text-[11px] text-[var(--color-muted)]">{f.meta}</span>

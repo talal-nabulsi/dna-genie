@@ -10,8 +10,8 @@ export default function DemoBanner() {
   const fmt = localFormat === "23andme" ? "23andMe" : localFormat === "ancestrydna" ? "AncestryDNA" : "your";
 
   return (
-    <div className="glass-card p-4 sm:p-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4 border-[rgba(57,255,20,0.25)]">
-      <span className="w-10 h-10 rounded-xl bg-[rgba(57,255,20,0.1)] border border-[rgba(57,255,20,0.25)] flex items-center justify-center shrink-0">
+    <div className="glass-card p-4 sm:p-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4 border-[rgba(143,124,255,0.25)]">
+      <span className="w-10 h-10 rounded-xl bg-[rgba(143,124,255,0.1)] border border-[rgba(143,124,255,0.25)] flex items-center justify-center shrink-0">
         <FlaskConical className="w-5 h-5 text-[var(--color-neon)]" />
       </span>
       <div className="flex-1 min-w-0">

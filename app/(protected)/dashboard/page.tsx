@@ -59,7 +59,7 @@ function Dashboard() {
       <div>
         <div className="mb-8">
           <p className="eyebrow mb-2">Dashboard</p>
-          <h1 className="text-3xl sm:text-4xl font-bold">Your genetic traits</h1>
+          <h1 className="text-3xl sm:text-4xl font-semibold">Your genetic traits</h1>
         </div>
         <LockedDashboard />
       </div>
@@ -81,7 +81,7 @@ function Dashboard() {
           <div className="flex items-center gap-2 overflow-x-auto hide-scrollbar flex-1 -mx-1 px-1">
             <button
               onClick={() => selectCategory(null)}
-              className={`pill shrink-0 ${!category ? "!border-[rgba(57,255,20,0.5)] !text-[var(--color-foreground)] !bg-[rgba(57,255,20,0.08)]" : "hover:text-[var(--color-foreground)]"}`}
+              className={`pill shrink-0 ${!category ? "!border-[rgba(143,124,255,0.5)] !text-[var(--color-foreground)] !bg-[rgba(143,124,255,0.08)]" : "hover:text-[var(--color-foreground)]"}`}
             >
               All <span className="tabular-nums opacity-70">{results.length}</span>
             </button>

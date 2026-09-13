@@ -13,13 +13,13 @@ export default function VariantTable({ variants, current }: { variants: VariantI
         {variants.map((v) => {
           const mine = v.genotype === current.genotype && v.label === current.label;
           return (
-            <li key={v.genotype} className={`flex items-start gap-4 py-3 -mx-3 px-3 rounded-lg ${mine ? "bg-[rgba(57,255,20,0.06)]" : ""}`}>
+            <li key={v.genotype} className={`flex items-start gap-4 py-3 -mx-3 px-3 rounded-lg ${mine ? "bg-[rgba(143,124,255,0.06)]" : ""}`}>
               <span className="font-mono text-sm w-10 shrink-0 pt-0.5">{v.genotype}</span>
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                   <span className={`w-1.5 h-1.5 rounded-full dot-${v.color}`} />
                   <span className="text-sm font-medium">{v.label}</span>
-                  {mine && <span className="pill !py-0.5 !text-[10px] !border-[rgba(57,255,20,0.4)] text-[var(--color-neon)]">You</span>}
+                  {mine && <span className="pill !py-0.5 !text-[10px] !border-[rgba(143,124,255,0.4)] text-[var(--color-neon)]">You</span>}
                 </div>
                 <p className="text-xs text-[var(--color-muted)] mt-1 leading-relaxed">{v.description}</p>
               </div>

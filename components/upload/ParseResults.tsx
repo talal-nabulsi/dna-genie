@@ -15,14 +15,14 @@ export default function ParseResults({ snpCount, format, saved, onReset }: Parse
 
   return (
     <div className="glass-card p-8 text-center relative overflow-hidden">
-      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-80 bg-[radial-gradient(circle,rgba(57,255,20,0.14),transparent_60%)]" />
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-80 h-80 bg-[radial-gradient(circle,rgba(143,124,255,0.14),transparent_60%)]" />
       <div className="relative">
         <div className="flex justify-center mb-4">
-          <div className="w-14 h-14 rounded-full bg-[rgba(57,255,20,0.1)] border border-[rgba(57,255,20,0.3)] flex items-center justify-center">
+          <div className="w-14 h-14 rounded-full bg-[rgba(143,124,255,0.1)] border border-[rgba(143,124,255,0.3)] flex items-center justify-center">
             <CheckCircle className="w-7 h-7 text-[var(--color-neon)]" />
           </div>
         </div>
-        <h3 className="text-xl font-bold mb-2">File processed</h3>
+        <h3 className="text-xl font-semibold mb-2">File processed</h3>
         <p className="text-[var(--color-muted)] mb-6 max-w-md mx-auto">
           Found <span className="text-[var(--color-neon)] font-semibold tabular-nums">{snpCount}</span> trait-relevant markers in your {formatLabel} file.{" "}
           {saved ? "Saved to your account." : "Kept in this tab only."}

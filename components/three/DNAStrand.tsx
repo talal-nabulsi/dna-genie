@@ -127,15 +127,15 @@ export default function DNAStrand({
   return (
     <group>
       <mesh geometry={tubeA}>
-        <meshStandardMaterial color="#b8d9bf" metalness={0.55} roughness={0.32} emissive="#123d1c" emissiveIntensity={0.35} />
+        <meshStandardMaterial color="#cfc8ea" metalness={0.55} roughness={0.32} emissive="#2a2454" emissiveIntensity={0.35} />
       </mesh>
       <mesh geometry={tubeB}>
-        <meshStandardMaterial color="#b8d9bf" metalness={0.55} roughness={0.32} emissive="#123d1c" emissiveIntensity={0.35} />
+        <meshStandardMaterial color="#cfc8ea" metalness={0.55} roughness={0.32} emissive="#2a2454" emissiveIntensity={0.35} />
       </mesh>
 
       <instancedMesh ref={beadRef} args={[undefined, undefined, cfg.pairs * 2]} frustumCulled={false}>
         <sphereGeometry args={[0.13, 18, 18]} />
-        <meshStandardMaterial color="#e6f4e8" metalness={0.4} roughness={0.3} emissive="#1b4d26" emissiveIntensity={0.3} />
+        <meshStandardMaterial color="#ece8f8" metalness={0.4} roughness={0.3} emissive="#3a3272" emissiveIntensity={0.3} />
       </instancedMesh>
 
       <instancedMesh
