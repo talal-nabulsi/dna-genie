@@ -9,7 +9,7 @@ DNA shows what you inherited. Blood shows what is happening now. DNA Genie reads
 - **Reads DNA on the device.** A streaming reader handles `.txt`, `.csv` and `.zip`, keeps 38 positions and skips the rest.
 - **Reads blood reports on the device.** PDF text (via pdf.js) or CSV, 43 common tests, unit conversion, and the range printed by the lab. The person checks every value before it is used.
 - **Pairs them.** 14 rules turn a genotype and a value into one explanation and one question for a clinician.
-- **Visit summary.** One printable page.
+- **Visit summary.** Short, and made to print.
 - **Genome map.** All 38 positions on G-banded chromosomes drawn to scale, and the real sequence around each in 3D.
 - **Microscope.** A Giemsa-stained blood smear drawn in a fragment shader, using absorbance so overlapping cells darken as they do on glass.
 

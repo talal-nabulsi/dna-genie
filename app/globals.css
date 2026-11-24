@@ -266,8 +266,12 @@ a.rung:hover .nm { text-decoration: underline; text-decoration-thickness: 1px; t
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 
 @media print {
-  @page { margin: 16mm; }
-  body { background: #fff; font-size: 11pt; }
+  @page { margin: 12mm; }
+  body { background: #fff; font-size: 9.5pt; line-height: 1.35; }
+  .ptitle { padding-block: 0 8pt; } .ptitle h1 { font-size: 22pt; }
+  .sect { margin-bottom: 11pt; } .sect > h2 { font-size: 13pt; margin-bottom: 4pt !important; }
+  .sect ul { gap: 3pt !important; } .tbl th, .tbl td { padding: 2.5pt 10pt 2.5pt 0; font-size: 9pt; }
+  .check input { width: 10pt; height: 10pt; }
   .bar, .foot, .notice, .noprint { display: none !important; }
   .wrap { padding: 0; max-width: none; }
   .find, tr { break-inside: avoid; }

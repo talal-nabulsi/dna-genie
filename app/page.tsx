@@ -99,8 +99,8 @@ export default function Home() {
         <section className="section sheet">
           <div className="wrap two" style={{ alignItems: "center" }}>
             <div>
-              <h2 className="h2" style={{ maxWidth: "14ch", marginBottom: 22 }}>Bring one page to your next appointment.</h2>
-              <p className="measure" style={{ marginBottom: 26 }}>The visit summary puts what stood out, the numbers behind it and the questions to ask on a page you can print. Try it with the sample before you use your own data.</p>
+              <h2 className="h2" style={{ maxWidth: "14ch", marginBottom: 22 }}>Bring a short summary to your next appointment.</h2>
+              <p className="measure" style={{ marginBottom: 26 }}>The visit summary puts what stood out, the numbers behind it and the questions to ask, ready to print. Try it with the sample before you use your own data.</p>
               <div className="row"><Link className="btn fill" href="/demo?next=/summary">See a sample summary</Link><Link className="btn" href="/upload">Read my file</Link></div>
             </div>
             <div className="paper" aria-label="Part of the sample visit summary">
