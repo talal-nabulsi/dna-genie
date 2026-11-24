@@ -12,7 +12,9 @@ import { BIOMARKER_BY_ID } from "@/lib/labs/biomarkers";
 import { normalizeGenotype } from "@/lib/traits/interpret";
 import Bonds, { EVIDENCE } from "@/components/Bonds";
 import RangeStrip, { StatusWord } from "@/components/RangeStrip";
-import Trace from "@/components/Trace";
+import Seq from "@/components/Seq";
+import MoleculeBand from "@/components/MoleculeBand";
+import { MARKER_SITE } from "@/lib/molecule/sites";
 import { Loading } from "@/components/Empty";
 
 const CITE = citations as Record<string, { title: string; journal: string; year: number }>;
@@ -40,7 +42,11 @@ export default function TraitPage() {
   const rows = t.outcomes ?? Object.entries(t.table ?? {}).map(([genotype, x]) => ({ genotype, ...x }));
   const labs = (t.labs ?? []).map((l) => ({ marker: BIOMARKER_BY_ID.get(l)!, j: r.judged.find((x) => x.id === l) }));
 
+  const shown = t.rsids[0], gt = hidden ? undefined : normalizeGenotype(shown, r.snps?.get(shown)), alt = MARKER_SITE.get(shown)!.alt;
+
   return (
+    <>
+    <MoleculeBand rsid={shown} alt={!!gt && !!alt && gt.includes(alt)} />
     <div className="wrap">
       <div className="ptitle">
         <div>
@@ -54,7 +60,7 @@ export default function TraitPage() {
         <div style={{ display: "grid", gap: 40 }}>
           {hidden ? (
             <div className="box strand-l">
-              <h2 style={{ fontSize: "1.6rem", marginBottom: 10 }}>You choose whether to see this</h2>
+              <h2 style={{ fontSize: "1.6rem", marginBottom: 10 }}>This result is hidden</h2>
               <p className="measure" style={{ marginBottom: 18 }}>{t.sensitive} A genetic counselor can help you decide.</p>
               <div className="row">
                 <button className="btn fill" onClick={() => update({ opened: [...r.opened, id] })}>Show my result</button>
@@ -75,21 +81,21 @@ export default function TraitPage() {
             <div className="box strand-l strand-r">
               <h2 style={{ fontSize: "1.45rem", marginBottom: 8 }}>{insight.title}</h2>
               <p className="measure">{insight.text}</p>
-              {insight.ask && <p className="measure" style={{ marginTop: 10 }}><strong>Ask:</strong> {insight.ask}</p>}
+              {insight.ask && <p className="measure" style={{ marginTop: 10 }}><strong>Question to ask:</strong> {insight.ask}</p>}
             </div>
           )}
 
           <section>
-            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>What it is</h2>
+            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>About</h2>
             <p className="measure">{t.about}</p>
           </section>
           <section>
-            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>What it cannot tell you</h2>
+            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>Limits</h2>
             <p className="measure">{t.limits}</p>
           </section>
 
           <section>
-            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>Every possible result</h2>
+            <h2 style={{ fontSize: "1.45rem", marginBottom: 10 }}>Possible results</h2>
             <div className="tblwrap"><table className="tbl" style={{ background: "none" }}>
               <tbody>{rows.map((x) => {
                 const mine = reading?.genotype === x.genotype;
@@ -118,16 +124,16 @@ export default function TraitPage() {
                     <a className="link mono" href={`https://www.ncbi.nlm.nih.gov/snp/${rs}`} target="_blank" rel="noopener noreferrer">{rs}</a>
                     <span className="mono small muted">chr{l.chr}:{l.pos.toLocaleString("en-US")}</span>
                   </p>
-                  <Trace flank={l.flank} genotype={g} />
+                  <Seq flank={l.flank} letters={g} span={6} />
                 </div>
               );
             })}
-            <p className="small muted" style={{ marginBottom: 14 }}>Letters are the real sequence on the GRCh37 plus strand. Peaks are drawn, not measured.</p>
-            <Link className="btn" href={`/explore?site=${t.rsids[0]}`}>See it on the genome map</Link>
+            <p className="small muted" style={{ marginBottom: 14 }}>GRCh37 sequence, plus strand on top. The marker is yellow for the reference letter, green for the other letter. Two different letters are shown in yellow.</p>
+            <Link className="btn" href={`/explore?site=${t.rsids[0]}`}>Genome map</Link>
           </section>
           {labs.length > 0 && (
             <section>
-              <h2 className="blood" style={{ fontSize: "1.25rem", marginBottom: 12 }}>In your blood</h2>
+              <h2 className="blood" style={{ fontSize: "1.25rem", marginBottom: 12 }}>Blood test</h2>
               <div style={{ display: "grid", gap: 20 }}>
                 {labs.filter((x) => x.j).map(({ marker, j }) => <div key={marker.id}><div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}><span>{marker.name}</span><span><strong className="num">{j!.bound}{j!.value}</strong> <StatusWord j={j!} /></span></div><RangeStrip j={j!} /></div>)}
                 {labs.every((x) => !x.j) && <p className="muted">{labs.map((x) => x.marker.name.split(",")[0]).filter((n, i, a) => a.indexOf(n) === i).join(", ")}: {r.labs ? "not on your panel." : <Link className="link" href="/blood">add a blood test</Link>}</p>}
@@ -137,5 +143,6 @@ export default function TraitPage() {
         </aside>
       </div>
     </div>
+    </>
   );
 }

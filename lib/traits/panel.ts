@@ -33,7 +33,7 @@ const apoe: Trait = {
 
 const sort1: Trait = {
   id: "sort1-ldl", name: "LDL at the SORT1 locus", gene: "SORT1", group: "lipids", rsids: ["rs646776"], evidence: 3,
-  about: "This stretch of chromosome 1 changes how much sortilin the liver makes, which changes how much LDL reaches the blood.",
+  about: "This part of chromosome 1 changes how much sortilin the liver makes, which changes how much LDL reaches the blood.",
   limits: "It is one of hundreds of markers that move LDL. Your measured LDL says far more than this does.",
   table: {
     CC: { label: "Lower LDL tendency", text: "Two copies of the version linked with lower LDL.", tone: "differs" },
@@ -143,7 +143,7 @@ const MTHFR = {
 };
 const mthfr: Trait = {
   id: "mthfr", name: "MTHFR and folate", gene: "MTHFR", group: "vitamins", rsids: ["rs1801133", "rs1801131"], evidence: 3,
-  about: "MTHFR makes the form of folate that keeps homocysteine in check. Two common versions, C677T and A1298C, slow it to different degrees.",
+  about: "MTHFR makes the form of folate that keeps homocysteine low. Two common versions, C677T and A1298C, slow it to different degrees.",
   limits: "The American College of Medical Genetics recommends against routine MTHFR testing. The CDC says people with these versions can process every type of folate, including folic acid, and that folic acid is the only type shown to help prevent neural tube defects.",
   read: (get) => {
     const a = get("rs1801133"), b = get("rs1801131");
@@ -233,7 +233,7 @@ const abcg2: Trait = {
 
 const crp: Trait = {
   id: "crp-baseline", name: "C-reactive protein baseline", gene: "CRP", group: "organs", rsids: ["rs1205"], evidence: 2,
-  about: "Markers in the CRP gene set where a person's CRP sits on an ordinary day. The T version goes with a lower baseline.",
+  about: "Markers in the CRP gene set a person's usual CRP level. The T version goes with a lower baseline.",
   limits: "A genetic baseline for CRP does not itself change heart risk, which was tested directly in large studies. A cold moves CRP far more.",
   table: {
     CC: { label: "Common result", text: "No copies of the lower-baseline version.", tone: "typical" },
@@ -247,7 +247,7 @@ const crp: Trait = {
 
 const lactase: Trait = {
   id: "lactose-tolerance", name: "Lactase persistence", gene: "MCM6 / LCT", group: "food", rsids: ["rs4988235"], evidence: 3,
-  about: "Most mammals stop making lactase after weaning. The A version, common in people with European ancestry, keeps it switched on.",
+  about: "Most mammals stop making lactase after weaning. The A version, common in people with European ancestry, keeps lactase active.",
   limits: "Other versions do the same job in African and Middle Eastern populations, so GG does not settle it for everyone.",
   table: {
     AA: { label: "Lactase persists", text: "You likely digest milk sugar as an adult.", tone: "typical" },
@@ -271,7 +271,7 @@ const caffeine: Trait = {
 
 const aldh2: Trait = {
   id: "alcohol-flush", name: "Alcohol flush", gene: "ALDH2", group: "food", rsids: ["rs671"], evidence: 3,
-  about: "ALDH2 clears acetaldehyde, the toxic product of alcohol. The A version barely works and is common in East Asia.",
+  about: "ALDH2 clears acetaldehyde, the toxic product of alcohol. The A version has very little activity and is common in East Asia.",
   limits: "A common result here says nothing about safe drinking.",
   table: {
     GG: { label: "Working enzyme", text: "Acetaldehyde is cleared in the usual way.", tone: "typical" },
@@ -316,7 +316,7 @@ const bitter: Trait = {
 
 const cilantro: Trait = {
   id: "cilantro-taste", name: "Cilantro", gene: "near OR6A2", group: "food", rsids: ["rs72921001"], evidence: 1,
-  about: "A marker beside a cluster of smell receptors nudges whether cilantro tastes of soap.",
+  about: "A marker beside a cluster of smell receptors has a small effect on whether cilantro tastes of soap.",
   limits: "The effect is small. Most people with any result do not taste soap.",
   table: {
     CC: { label: "Soapy taste slightly more likely", text: "Neither copy is the version that makes soapiness less likely.", tone: "typical" },
@@ -331,7 +331,7 @@ const cilantro: Trait = {
 
 const eye: Trait = {
   id: "eye-color", name: "Eye color", gene: "HERC2 / OCA2", group: "body", rsids: ["rs12913832"], evidence: 3,
-  about: "This site works as a switch for OCA2, which sets how much pigment the iris makes.",
+  about: "This site controls OCA2, which sets how much pigment the iris makes.",
   limits: "Other genes adjust the shade.",
   table: {
     GG: { label: "Blue likely", text: "Little pigment in the iris.", tone: "differs" },
@@ -343,7 +343,7 @@ const eye: Trait = {
 
 const mc1r: Trait = {
   id: "freckling", name: "Red hair and sun sensitivity", gene: "MC1R", group: "body", rsids: ["rs1805007"], evidence: 3,
-  about: "MC1R decides which pigment skin and hair make. The T version, R151C, shifts it toward red and is linked with fair skin.",
+  about: "MC1R decides which pigment skin and hair make. The T version, R151C, makes more red pigment and is linked with fair skin.",
   limits: "Several other MC1R versions do the same and are not read here.",
   table: {
     CC: { label: "No R151C copies", text: "Other MC1R versions may still apply.", tone: "typical" },
@@ -455,7 +455,7 @@ const klotho: Trait = {
 
 const tert: Trait = {
   id: "telomere-length", name: "Telomere length", gene: "TERT", group: "aging", rsids: ["rs2736100"], evidence: 2,
-  about: "Telomeres cap the ends of chromosomes. The C version goes with longer ones.",
+  about: "Telomeres are the ends of chromosomes. The C version goes with longer ones.",
   limits: "Longer is not simply better. Longer telomeres are also linked with some cancers.",
   table: {
     CC: { label: "Longer, on average", text: "Two copies of the longer-telomere version.", tone: "differs" },

@@ -16,8 +16,8 @@ const APP = [
   { href: "/summary", label: "Visit summary" },
 ];
 const SITE = [
-  { href: "/#example", label: "How it reads" },
   { href: "/#markers", label: "Markers" },
+  { href: "/#blood", label: "Blood tests" },
   { href: "/#privacy", label: "Privacy" },
   { href: "/explore", label: "Genome map" },
 ];
@@ -42,7 +42,7 @@ export default function Header() {
     <>
       {sample && (
         <div className="notice"><div className="wrap in">
-          <strong>Sample report</strong><span>Invented DNA and blood values. They belong to no one.</span>
+          <strong>Sample report</strong><span>The DNA and blood values are made up.</span>
           <Link href="/upload" className="link">Use your own file</Link>
         </div></div>
       )}

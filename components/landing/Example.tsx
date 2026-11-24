@@ -60,7 +60,7 @@ export default function Example() {
         <div className="lab-out" aria-live="polite">
           <h3>{insight.title}</h3>
           <p className="measure">{insight.text}</p>
-          {insight.ask && <p className="measure" style={{ marginTop: 12 }}><strong>Ask your clinician:</strong> {insight.ask}</p>}
+          {insight.ask && <p className="measure" style={{ marginTop: 12 }}><strong>Question to ask:</strong> {insight.ask}</p>}
         </div>
       </div>
     </div>

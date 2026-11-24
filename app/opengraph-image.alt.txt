@@ -1,0 +1,1 @@
+DNA Genie reads 33 markers from a 23andMe or AncestryDNA file.

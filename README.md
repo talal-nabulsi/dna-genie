@@ -1,8 +1,8 @@
 # DNA Genie
 
-Read a consumer DNA file beside a blood test. Live at [dnagenie.app](https://dnagenie.app), with a [sample report](https://dnagenie.app/demo).
+Live at [dnagenie.app](https://dnagenie.app), with a [sample report](https://dnagenie.app/demo).
 
-DNA shows what you inherited. Blood shows what is happening now. DNA Genie reads 33 markers from a 23andMe or AncestryDNA file and, if you add a lab report, puts each marker across from the test that bears on it.
+DNA Genie reads 33 markers from a 23andMe or AncestryDNA file. Blood test results are optional and are shown next to the related markers.
 
 ## What it does
 
@@ -11,13 +11,13 @@ DNA shows what you inherited. Blood shows what is happening now. DNA Genie reads
 - **Pairs them.** 14 rules turn a genotype and a value into one explanation and one question for a clinician.
 - **Visit summary.** Short, and made to print.
 - **Genome map.** All 38 positions on G-banded chromosomes drawn to scale, and the real sequence around each in 3D.
-- **Microscope.** A Giemsa-stained blood smear drawn in a fragment shader, using absorbance so overlapping cells darken as they do on glass.
+- **Molecule.** Every atom of the 61 letters around a marker, placed from the Arnott fiber diffraction model of B-DNA and drawn as outlined sphere impostors in a custom WebGL2 pipeline (`lib/molecule`).
 
-## How it stays honest
+## Accuracy
 
-- Citation titles are pulled from PubMed by ID (`npm run sync:citations`), so text cannot drift from the paper.
+- Citation titles are pulled from PubMed by ID (`npm run sync:citations`), to match each paper.
 - Tests check that every marker has a row for each genotype, with alleles from Ensembl on the GRCh37 plus strand.
-- Each result carries an evidence grade and says what it cannot tell you.
+- Each result carries an evidence grade and lists its limits.
 - APOE is hidden until the person asks to see it, and hidden results do not leak through pairs.
 - No doses and no treatment advice. Very abnormal values show a same-day notice first.
 
@@ -27,7 +27,7 @@ Raw files are never sent. Without an account everything lives in `sessionStorage
 
 ## Stack
 
-Next.js 16, React 19, TypeScript, React Three Fiber, WebGL, pdf.js, Firebase Auth, Firestore and App Hosting, Vitest.
+Next.js 16, React 19, TypeScript, three.js, WebGL2, pdf.js, Firebase Auth, Firestore and App Hosting, Vitest.
 
 ```bash
 npm install

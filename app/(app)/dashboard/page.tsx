@@ -46,7 +46,7 @@ export default function ReportPage() {
           </p>
         </div>
         <div className="row">
-          {!r.snps && <Link className="btn fill" href="/upload">Read a DNA file</Link>}
+          {!r.snps && <Link className="btn fill" href="/upload">Open a DNA file</Link>}
           {!r.labs && <Link className="btn red" href="/blood">Add a blood test</Link>}
           {r.labs && <Link className="btn" href="/summary">Visit summary</Link>}
         </div>
@@ -56,15 +56,15 @@ export default function ReportPage() {
 
       <div className="report">
         <nav className="idx" aria-label="Sections">
-          {r.labs && <a href="#findings">What stands out <span className="num">{both.length + r.loose.length}</span></a>}
+          {r.labs && <a href="#findings">Out of range <span className="num">{both.length + r.loose.length}</span></a>}
           {r.snps && GROUPS.map((g) => { const n = rows.filter((x) => x.trait.group === g.id).length; return n ? <a key={g.id} href={`#${g.id}`}>{g.name} <span className="num">{n}</span></a> : null; })}
         </nav>
 
         <div style={{ minWidth: 0 }}>
           {r.labs && (
             <section className="sect" id="findings">
-              <h2>What stands out</h2>
-              <p className="muted">Blood values outside their range, with what your DNA adds.</p>
+              <h2>Out of range</h2>
+              <p className="muted">Blood values outside their range, with related DNA markers.</p>
               {both.length + r.loose.length === 0 && <p>Every value you entered is in range.</p>}
               {both.map((i) => {
                 const t = TRAIT_BY_ID.get(i.traitId)!, res = r.results.find((x) => x.trait.id === t.id)!;
@@ -73,7 +73,7 @@ export default function ReportPage() {
                     <div>
                       <h3><Link href={`/traits/${t.id}`} style={{ textDecoration: "none" }}>{i.title}</Link></h3>
                       <p className="measure">{i.text}</p>
-                      {i.ask && <p className="measure" style={{ marginTop: 10 }}><strong>Ask:</strong> {i.ask}</p>}
+                      {i.ask && <p className="measure" style={{ marginTop: 10 }}><strong>Question to ask:</strong> {i.ask}</p>}
                     </div>
                     <div className="ev">
                       <div className="dna">{t.gene} <span className="mono">{res.reading.genotype}</span></div>
@@ -84,8 +84,8 @@ export default function ReportPage() {
               })}
               {r.loose.length > 0 && (
                 <div style={{ borderTop: "2px solid var(--ink)", paddingTop: 22, marginTop: both.length ? 8 : 0 }}>
-                  <h3 style={{ fontSize: "1.35rem", marginBottom: 6 }}>Also outside their range</h3>
-                  <p className="muted" style={{ marginBottom: 14 }}>This site has no paired marker for these. Ask what they mean for you and whether to repeat them.</p>
+                  <h3 style={{ fontSize: "1.35rem", marginBottom: 6 }}>Other values out of range</h3>
+                  <p className="muted" style={{ marginBottom: 14 }}>No related DNA marker is read for these. Ask a clinician what they mean and whether to repeat them.</p>
                   {r.loose.map((j) => <div key={j.id} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "4px 40px", padding: "12px 0", borderTop: "1px solid var(--line)" }}><span>{j.marker.name} <strong className="num">{j.bound}{j.value} {j.marker.unit}</strong> <StatusWord j={j} /></span><div><RangeStrip j={j} /></div></div>)}
                 </div>
               )}
@@ -94,8 +94,8 @@ export default function ReportPage() {
 
           {r.labs && r.missing.length > 0 && (
             <section className="sect">
-              <h2>Tests that would answer an open question</h2>
-              <p className="muted">Your DNA raises these, and this panel did not measure them.</p>
+              <h2>Related tests not on this panel</h2>
+              <p className="muted">These relate to your genotypes and were not measured.</p>
               <ul>{r.missing.map((m) => <li key={m.trait.trait.id} style={{ padding: "6px 0" }}><strong>{BIOMARKER_BY_ID.get(m.labs[0])!.name.split(",")[0]}</strong>, because of <Link className="link dna" href={`/traits/${m.trait.trait.id}`}>{m.trait.trait.gene}: {lead(m.trait.reading.label)}</Link></li>)}</ul>
             </section>
           )}
@@ -114,7 +114,7 @@ export default function ReportPage() {
                   <section className="sect" id={g.id} key={g.id}>
                     <h2>{g.name}</h2>
                     <p className="muted">{g.blurb}</p>
-                    <div className="ladder-head"><span className="dna"><strong>Inherited</strong></span><span className="mid">Evidence</span><span className="blood"><strong>In your blood</strong></span></div>
+                    <div className="ladder-head"><span className="dna"><strong>DNA</strong></span><span className="mid">Evidence</span><span className="blood"><strong>Blood test</strong></span></div>
                     <div className="ladder">
                       {list.map((x) => <Rung key={x.trait.id} result={x} judged={r.judged} hasPanel={!!r.labs} hidden={!!x.trait.sensitive && !r.opened.includes(x.trait.id)} />)}
                     </div>

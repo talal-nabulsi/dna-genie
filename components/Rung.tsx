@@ -15,7 +15,7 @@ export default function Rung({ result, judged, hidden, hasPanel }: { result: Tra
     <Link className="rung" href={`/traits/${trait.id}`}>
       <div>
         <div className="ln"><span className="nm">{trait.name}</span><span className="gt dna">{hidden ? "Hidden" : reading.genotype}</span></div>
-        <p className="small muted">{hidden ? "You choose whether to see this one." : reading.label}</p>
+        <p className="small muted">{hidden ? "Open to view." : reading.label}</p>
       </div>
       <div className="mid"><Bonds n={trait.evidence} /></div>
       <div>

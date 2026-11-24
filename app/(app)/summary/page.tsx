@@ -25,19 +25,19 @@ export default function SummaryPage() {
       <div className="ptitle">
         <div>
           <h1>Visit summary</h1>
-          <p className="muted" style={{ marginTop: 12 }}>{r.sample ? "Sample. Invented values that belong to no one. " : ""}Prepared {longDate(new Date().toISOString().slice(0, 10))}{r.labs ? `. Blood drawn ${longDate(r.labs.date)}` : ""}.</p>
+          <p className="muted" style={{ marginTop: 12 }}>{r.sample ? "Sample with made-up values. " : ""}Prepared {longDate(new Date().toISOString().slice(0, 10))}{r.labs ? `. Blood drawn ${longDate(r.labs.date)}` : ""}.</p>
         </div>
         <button className="btn fill noprint" onClick={() => window.print()}>Print or save as PDF</button>
       </div>
 
       <Urgent judged={r.judged} date={r.labs ? longDate(r.labs.date) : undefined} />
 
-      {!r.labs && <p className="err noprint" style={{ marginBottom: 30 }}>Add a <Link className="link" href="/blood">blood test</Link> to make this page useful at a visit.</p>}
+      {!r.labs && <p className="err noprint" style={{ marginBottom: 30 }}>This summary has no <Link className="link" href="/blood">blood test</Link> yet.</p>}
 
       {asks.length > 0 && <section className="sect"><h2 style={{ marginBottom: 14 }}>Questions to ask</h2><ul style={{ display: "grid", gap: 12 }}>{asks.map((a) => <li key={a} className="check"><input type="checkbox" aria-label={`Asked: ${a}`} /> <span>{a}</span></li>)}</ul></section>}
 
       {out.length > 0 && (
-        <section className="sect"><h2 style={{ marginBottom: 14 }}>Values outside their range</h2>
+        <section className="sect"><h2 style={{ marginBottom: 14 }}>Out of range</h2>
           <div className="tblwrap"><table className="tbl" style={{ background: "none" }}><thead><tr><th scope="col">Test</th><th scope="col">Value</th><th scope="col">Range</th><th scope="col">Related marker</th></tr></thead>
             <tbody>{out.map((j) => {
               const i = findings.find((x) => x.labs.includes(j.id)), t = i && TRAIT_BY_ID.get(i.traitId)!, res = t && r.results.find((x) => x.trait.id === t.id);
@@ -47,13 +47,13 @@ export default function SummaryPage() {
       )}
 
       {notable.length > 0 && (
-        <section className="sect"><h2 style={{ marginBottom: 14 }}>Genotypes worth knowing</h2>
+        <section className="sect"><h2 style={{ marginBottom: 14 }}>Notable genotypes</h2>
           <div className="tblwrap"><table className="tbl" style={{ background: "none" }}><thead><tr><th scope="col">Gene</th><th scope="col">Result</th><th scope="col">Markers</th></tr></thead>
             <tbody>{notable.map((x) => <tr key={x.trait.id}><th scope="row">{x.trait.gene}</th><td><span className="mono">{x.reading.genotype}</span>, {lead(x.reading.label)}</td><td className="mono small">{x.trait.rsids.join(", ")}</td></tr>)}</tbody></table></div>
         </section>
       )}
 
-      {r.labs && r.missing.length > 0 && <section className="sect"><h2 style={{ marginBottom: 14 }}>Not measured on this panel</h2><ul>{r.missing.map((m) => <li key={m.trait.trait.id}>{BIOMARKER_BY_ID.get(m.labs[0])!.name.split(",")[0]} ({m.trait.trait.gene})</li>)}</ul></section>}
+      {r.labs && r.missing.length > 0 && <section className="sect"><h2 style={{ marginBottom: 14 }}>Related tests not on this panel</h2><ul>{r.missing.map((m) => <li key={m.trait.trait.id}>{BIOMARKER_BY_ID.get(m.labs[0])!.name.split(",")[0]} ({m.trait.trait.gene})</li>)}</ul></section>}
 
       <p className="small muted measure">Genotypes come from a consumer array on the GRCh37 plus strand and have not been clinically confirmed. Blood values were read from a report or typed in, then checked by the person. DNA Genie does not diagnose. dnagenie.app</p>
     </div>

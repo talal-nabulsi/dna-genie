@@ -52,8 +52,8 @@ export default function AuthPage() {
               <p><button className="link" onClick={() => { setCreate(!create); setErr(""); }}>{create ? "I already have an account" : "Create an account"}</button></p>
             </div>
             <aside style={{ display: "grid", gap: 22 }}>
-              <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>You do not need an account</h2><p className="muted">Everything works without one. An account only lets you come back to your genotypes later, and to a blood test if you choose to save it.</p></section>
-              <div className="row"><Link className="btn" href="/upload">Continue without one</Link></div>
+              <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Account is optional</h2><p className="muted">An account saves your genotypes, and a blood test if you choose to save it. Everything else works without one.</p></section>
+              <div className="row"><Link className="btn" href="/upload">Continue without an account</Link></div>
             </aside>
           </div>
         </div>

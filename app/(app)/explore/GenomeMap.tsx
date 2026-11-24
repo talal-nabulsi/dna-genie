@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
-import dynamic from "next/dynamic";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import Karyogram, { SITES } from "@/components/Karyogram";
 import { LOCI, normalizeGenotype } from "@/lib/traits/interpret";
 import { GROUPS, GROUP_BY_ID } from "@/lib/traits/groups";
+import Molecule from "@/components/Molecule";
+import Seq from "@/components/Seq";
+import { moleculeSite } from "@/lib/molecule/sites";
 import { useReport } from "@/lib/session/useReport";
 
-const Helix3D = dynamic(() => import("@/components/Helix3D"), { ssr: false });
-const COMP: Record<string, string> = { A: "T", T: "A", C: "G", G: "C" };
 
 export default function GenomeMap() {
   const params = useSearchParams(), router = useRouter();
@@ -25,7 +25,7 @@ export default function GenomeMap() {
   const copy = shown.rsid === site.rsid ? shown.k : 0;
   const het = !!g && g[0] !== g[1];
   const letter = g ? g[het ? copy : 0] : l.flank[30];
-  const seq = l.flank.slice(0, 30) + letter + l.flank.slice(31);
+  const pose = useMemo(() => ({ span: 34, angle: -0.06, x: 0, y: 0 }), []);
 
   const select = (rsid: string) => {
     router.replace(`/explore?site=${rsid}`, { scroll: false });
@@ -35,7 +35,7 @@ export default function GenomeMap() {
   return (
     <div className="wrap">
       <div className="ptitle">
-        <div><h1>Genome map</h1><p className="muted measure" style={{ marginTop: 12 }}>Chromosomes 1 to 22 and X, to scale, with their stained bands. Choose a position to see the sequence around it.</p></div>
+        <div><h1>Genome map</h1><p className="muted measure" style={{ marginTop: 12 }}>Chromosomes 1 to 22 and X, drawn to scale. Choose a position to see its sequence.</p></div>
         <label className="field" style={{ minWidth: 220 }}><span>Show</span><select className="input" value={group} onChange={(e) => setGroup(e.target.value)}><option value="">Every position</option>{GROUPS.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select></label>
       </div>
 
@@ -43,11 +43,8 @@ export default function GenomeMap() {
 
       <div ref={panel} className="two" style={{ marginTop: 36, scrollMarginTop: 90 }}>
         <div style={{ minWidth: 0 }}>
-          <div className="map3d"><Helix3D key={site.rsid + letter} seq={seq} focus={30} mode="bases" across={17} fov={28} /></div>
-          <div className="seq" aria-label="Sequence" tabIndex={0}>
-            <div><span className="dna">5′ </span>{[...seq].map((b, i) => (i === 30 ? <mark key={i}>{b}</mark> : <span key={i} className={`b-${b}`}>{b}</span>))}<span className="dna"> 3′</span></div>
-            <div><span className="blood">3′ </span>{[...seq].map((b, i) => (i === 30 ? <mark key={i}>{COMP[b]}</mark> : <span key={i} className={`b-${COMP[b]}`}>{COMP[b]}</span>))}<span className="blood"> 5′</span></div>
-          </div>
+          <div className="map3d"><Molecule site={moleculeSite(site.rsid)} alt={letter !== l.flank[30]} pose={pose} label={`DNA around ${site.trait.gene} ${site.rsid}. The marker is yellow. Drag to turn.`} /></div>
+          <Seq flank={l.flank} letters={letter} span={14} />
         </div>
         <aside>
           <p className="muted">{GROUP_BY_ID.get(site.trait.group)!.name}</p>
@@ -58,13 +55,13 @@ export default function GenomeMap() {
             <dt className="muted">Position</dt><dd className="mono">chr{l.chr}:{l.pos.toLocaleString("en-US")}</dd>
             <dt className="muted">Marker</dt><dd className="mono">{site.rsid}</dd>
             <dt className="muted">Letters seen</dt><dd className="mono">{l.alleles.join(" or ")}</dd>
-            <dt className="muted">{r.sample ? "Sample" : "Yours"}</dt><dd>{hidden ? "Hidden until you choose to see it" : g ? <strong className="mono dna">{g}</strong> : <span className="muted">{r.snps ? "Not in this file" : "No file open"}</span>}</dd>
+            <dt className="muted">{r.sample ? "Sample" : "Yours"}</dt><dd>{hidden ? "Hidden" : g ? <strong className="mono dna">{g}</strong> : <span className="muted">{r.snps ? "Not in this file" : "No file open"}</span>}</dd>
           </dl>
           {het && <div className="geno" role="group" aria-label="Copy shown" style={{ marginBottom: 24, marginTop: 0 }}>{[0, 1].map((k) => <button key={k} aria-pressed={copy === k} onClick={() => setShown({ rsid: site.rsid, k })} aria-label={`Show the copy with ${g![k]}`}>{g![k]}</button>)}</div>}
-          <div className="row"><Link className="btn fill" href={`/traits/${site.trait.id}`}>Read this marker</Link>{!r.snps && <Link className="btn" href="/demo?next=/explore">Use the sample</Link>}</div>
+          <div className="row"><Link className="btn fill" href={`/traits/${site.trait.id}`}>Marker details</Link>{!r.snps && <Link className="btn" href="/demo?next=/explore">Sample report</Link>}</div>
         </aside>
       </div>
-      <p className="small muted" style={{ marginTop: 20 }}>61 letters from GRCh37, plus strand on top. Wide blocks are A and G, narrow blocks are C and T. Dots are hydrogen bonds.</p>
+      <p className="small muted" style={{ marginTop: 20 }}>Sequence from GRCh37, plus strand on top. The marker is yellow for the reference letter and green for the other letter. Each sphere is one atom. Hydrogen is left out. Real DNA bends more than this straight model.</p>
     </div>
   );
 }

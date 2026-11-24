@@ -76,7 +76,7 @@ export default function BloodPage() {
     const flagged = draft.rows.filter((x) => x.check).length;
     return (
       <div className="wrap">
-        <div className="ptitle"><div><h1>{draft.from ? "Check what we read" : "Enter your values"}</h1><p className="muted" style={{ marginTop: 12 }}>{draft.from ? `${draft.rows.length} values from ${draft.from}. ${flagged ? `${flagged} marked in red need a closer look.` : ""} Compare each one with your report.` : "Fill in what you have and leave the rest empty."}</p></div></div>
+        <div className="ptitle"><div><h1>{draft.from ? "Check the values" : "Enter your values"}</h1><p className="muted" style={{ marginTop: 12 }}>{draft.from ? `${draft.rows.length} values from ${draft.from}. ${flagged ? `${flagged} marked in red need a closer look.` : ""} Compare each one with your report.` : "Fill in what you have and leave the rest empty."}</p></div></div>
         <div className="box" style={{ marginBottom: 26, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 22 }}>
           <label className="field"><span>Date the blood was taken</span><input className="input" type="date" max={today()} value={draft.date} onChange={(e) => setDraft({ ...draft, date: e.target.value })} /></label>
           <label className="field"><span>Sex used for lab ranges, optional</span><select className="input" value={draft.sex} onChange={(e) => setDraft({ ...draft, sex: e.target.value as Sex | "" })}><option value="">Not given</option><option value="female">Female</option><option value="male">Male</option></select></label>
@@ -108,7 +108,7 @@ export default function BloodPage() {
         </div>
         {r.user && <p style={{ marginBottom: 20 }}><label className="check"><input type="checkbox" checked={keep} onChange={(e) => setKeep(e.target.checked)} /> <span>Save these values to my account. Leave this off to keep them in this tab only.</span></label></p>}
         {err && <p className="err" role="alert" style={{ marginBottom: 20 }}>{err}</p>}
-        <div className="row"><button className="btn red" onClick={confirm}>These match my report</button><button className="btn" onClick={() => { setDraft(null); setErr(""); }}>Cancel</button></div>
+        <div className="row"><button className="btn red" onClick={confirm}>Use these values</button><button className="btn" onClick={() => { setDraft(null); setErr(""); }}>Cancel</button></div>
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function BloodPage() {
   return (
     <div className="wrap">
       <div className="ptitle">
-        <div><h1>Blood test</h1>{r.labs && <p className="muted" style={{ marginTop: 12 }}>{r.labs.values.length} values from {longDate(r.labs.date)}{r.labs.sample ? ", invented for the sample" : r.labsSaved && !session.labs ? ", saved to your account" : ", in this tab"}.</p>}</div>
+        <div><h1>Blood test</h1>{r.labs && <p className="muted" style={{ marginTop: 12 }}>{r.labs.values.length} values from {longDate(r.labs.date)}{r.labs.sample ? ", made up for the sample" : r.labsSaved && !session.labs ? ", saved to your account" : ", in this tab"}.</p>}</div>
         {own && <div className="row"><Link className="btn fill" href="/dashboard">Open the report</Link><button className="btn" onClick={edit}>Edit</button></div>}
       </div>
 
@@ -131,9 +131,9 @@ export default function BloodPage() {
           {own && <p className="small"><button className="link" onClick={remove}>{r.labsSaved ? "Delete my saved blood test" : "Remove it from this tab"}</button></p>}
         </div>
         <aside style={{ display: "grid", gap: 24 }}>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>This part is optional</h2><p className="muted">The report works with DNA alone. A blood test shows which tendencies are happening.</p></section>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>What happens to it</h2><p className="muted">The report is read in your browser and is not sent anywhere. Your name and other details on it are ignored. You check every value before it is used.</p></section>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>What reads well</h2><p className="muted">PDFs you download from a lab or patient portal. Scans and photos have no text to read, so type those in.</p></section>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Optional</h2><p className="muted">The report works without a blood test.</p></section>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>How the file is handled</h2><p className="muted">The report is read in your browser and is not sent anywhere. Your name and other details on it are ignored. You check every value before it is used.</p></section>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Supported files</h2><p className="muted">PDFs downloaded from a lab or patient portal, and CSV files. Scans and photos cannot be read. Type those values in.</p></section>
         </aside>
       </div>
 

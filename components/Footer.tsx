@@ -7,12 +7,12 @@ export default function Footer() {
       <div className="wrap">
         <div className="in">
           <div>
-            <div className="brand" style={{ marginBottom: 14 }}><Mark mono /> DNA Genie</div>
-            <p className="measure" style={{ maxWidth: "40ch" }}>For learning and for better questions at your next visit. It does not diagnose, and it is not a substitute for care.</p>
+            <div className="brand" style={{ marginBottom: 14 }}><Mark /> DNA Genie</div>
+            <p className="measure" style={{ maxWidth: "40ch" }}>DNA Genie is for learning. It does not diagnose and does not replace medical care.</p>
           </div>
           <ul>
-            <li><Link href="/demo">Open the sample report</Link></li>
-            <li><Link href="/upload">Read a DNA file</Link></li>
+            <li><Link href="/demo">Sample report</Link></li>
+            <li><Link href="/upload">Open a DNA file</Link></li>
             <li><Link href="/blood">Add a blood test</Link></li>
             <li><Link href="/explore">Genome map</Link></li>
           </ul>
@@ -23,7 +23,7 @@ export default function Footer() {
             <li><a href="https://medlineplus.gov/lab-tests/" target="_blank" rel="noopener noreferrer">MedlinePlus: lab tests</a></li>
           </ul>
         </div>
-        <p className="fine">Positions are GRCh37. Sequence from Ensembl, bands from UCSC, citations from PubMed. Built by Talal Nabulsi.</p>
+        <p className="fine">Positions: GRCh37. Sequence: Ensembl. Chromosome bands: UCSC. Citations: PubMed. Atom positions: the fiber diffraction model of B-DNA by Arnott and colleagues. Built by Talal Nabulsi.</p>
       </div>
     </footer>
   );

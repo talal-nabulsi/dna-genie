@@ -59,14 +59,14 @@ export default function UploadPage() {
           )}
         </div>
         <aside style={{ display: "grid", gap: 26 }}>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>What happens to it</h2><p className="muted">The file is read here, in your browser. {ALL_RSIDS.size} positions are kept and the rest are skipped. {r.user ? "Because you are signed in, those genotypes are saved to your account." : "Without an account, nothing is saved or sent."}</p></section>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Where to get it</h2>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>How the file is handled</h2><p className="muted">The file is read in your browser. {ALL_RSIDS.size} positions are kept and the rest are skipped. {r.user ? "Because you are signed in, those genotypes are saved to your account." : "Without an account, nothing is saved or sent."}</p></section>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Where to download it</h2>
             <ul className="muted" style={{ display: "grid", gap: 8 }}>
               <li><a className="link" href="https://you.23andme.com/tools/data/download/" target="_blank" rel="noopener noreferrer">23andMe: download raw data</a></li>
               <li><a className="link" href="https://www.ancestry.com/dna/settings" target="_blank" rel="noopener noreferrer">AncestryDNA: settings, then download</a></li>
             </ul>
           </section>
-          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Before you open it</h2><p className="muted">DNA is shared with relatives, so a result can say something about them too. These arrays can misread single positions. Confirm anything that matters with a clinical test.</p></section>
+          <section><h2 style={{ fontSize: "1.25rem", marginBottom: 8 }}>Before you start</h2><p className="muted">Results can also apply to your relatives. Consumer arrays can misread single positions, so confirm important results with a clinical test.</p></section>
         </aside>
       </div>
     </div>

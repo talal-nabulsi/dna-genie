@@ -1,3 +1,21 @@
+# Design
+
+## Second pass, November 2026
+
+The site is drawn as one molecule. `lib/molecule/arnott.json` holds the heavy-atom positions of B-DNA from the
+fiber diffraction model of Arnott and colleagues. `bdna.ts` builds the 61 letters around each marker from it, and
+`tests/molecule.test.ts` checks bond lengths, hydrogen bonds and handedness. `engine.ts` draws every atom as a flat
+shaded sphere with an ink outline.
+
+- Colors come from the drawing: pink ground, violet and crimson backbones, cream A, pink C, lavender G, orange T, and
+  yellow for the marker (green when it shows the other letter). Letter tiles use the same four colors.
+- One typeface, Atkinson Hyperlegible, plus its mono for letters and positions. No display face.
+- Headings are labels. Copy states what a thing is or does. No slogans, no paired contrasts, no claims about quality.
+- Square tables and 2px ink lines. No cards, pills, shadows or gradients.
+
+The rest of this file is the plan for the first pass. Its visual rules are replaced by the list above. Its order of
+work and safety rules still hold.
+
 # The redesign plan
 
 ## Idea
