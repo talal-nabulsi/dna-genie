@@ -1,17 +1,18 @@
-# Two strands: the redesign plan
+# The redesign plan
 
 ## Idea
-DNA has two strands. The product now does too: **what you inherited** (genotype file, blue ink) and
-**what your blood shows today** (optional lab panel, red ink). Every screen is built from that pairing.
-Where a marker has a matching blood test, the two sit across from each other like a base pair, and one to
-three dots between them (hydrogen bonds) show how strong the evidence is.
+Labs use one dye, Giemsa, for both halves of this product. On a blood smear it turns red cells rose and the
+DNA in white cells violet. On chromosomes it draws the bands used to number them. So the palette is the stain:
+**violet is DNA, rose is blood.** The report puts a marker and its blood test across from each other like a
+base pair, with one to three dots between them (hydrogen bonds) for the strength of the evidence.
 
 ## Rules for the design
-- Colour means source. Blue is DNA, red is blood. Status is carried by position and words, never hue alone.
-- A, C, G, T use the standard Sanger chromatogram colours, only inside sequences.
-- Every picture is real data: GRCh37 positions, UCSC G-bands, Ensembl flanking sequence.
-- Type is Atkinson Hyperlegible, drawn so 0/O, 1/l/I and rsIDs cannot be confused.
-- No gradients, glass, pills, glow, eyebrow labels or icon-card grids.
+- Color means source. Violet is DNA, rose is blood. Status is carried by position and words, never hue alone.
+- A, C, G, T use the standard Sanger chromatogram colors, only inside sequences.
+- The hero is a microscope: a stained smear, then a cell, then the real sequence inside its nucleus.
+- Pictures use real data: GRCh37 positions, UCSC G-bands, Ensembl sequence. Anything drawn says so.
+- Headings are Hedvig Letters Serif, like a plate in an atlas. Text is Atkinson Hyperlegible, so 0/O and 1/l/I stay apart.
+- No gradients for decoration, no glass, no glow, no eyebrow labels, no icon-card grids.
 
 ## Order of work
 1. **Content.** Check every citation against PubMed and every allele against Ensembl. Drop what fails.

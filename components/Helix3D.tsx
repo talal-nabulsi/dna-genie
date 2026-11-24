@@ -11,10 +11,13 @@ type Base = "A" | "C" | "G" | "T";
 const COMP: Record<Base, Base> = { A: "T", T: "A", C: "G", G: "C" };
 /** Purines have two rings and reach further toward the middle than pyrimidines. */
 const PURINE = (b: Base) => b === "A" || b === "G";
-const FULL: Record<Base, string> = { A: "#17804b", C: "#1c57cf", G: "#343a46", T: "#cb2f2a" };
 
 const RISE = 0.34, TURN = 10.5, RADIUS = 1, OFFSET = 2.36;
-const BLUE = "#1b3fb5", RED = "#a8172f";
+const TONES = {
+  light: { a: "#5a2a8c", b: "#d0356b", qa: "#cdb9e6", qb: "#f2bccd", dot: "#2a1238", full: { A: "#3f9b6c", C: "#4a7fd8", G: "#544d61", T: "#da554e" } as Record<Base, string> },
+  dark: { a: "#c9aef2", b: "#ff9dba", qa: "#8c66c4", qb: "#b5608f", dot: "#ffffff", full: { A: "#ffe08a", C: "#9fe0ff", G: "#ffffff", T: "#ffe08a" } as Record<Base, string> },
+};
+export type Tone3D = keyof typeof TONES;
 
 const X = new THREE.Vector3(1, 0, 0);
 const m = new THREE.Matrix4(), q = new THREE.Quaternion(), p = new THREE.Vector3(), s = new THREE.Vector3(), c = new THREE.Color();
@@ -31,11 +34,13 @@ export interface HelixProps {
   across: number;
   /** Where the focus pair sits across the canvas, 0 to 1. */
   at?: number;
+  tone?: Tone3D;
   /** Lean of the axis, in radians. */
   tilt?: number;
 }
 
-function Strands({ seq, focus, mode }: Pick<HelixProps, "seq" | "focus" | "mode">) {
+function Strands({ seq, focus, mode, tone = "light" }: Pick<HelixProps, "seq" | "focus" | "mode" | "tone">) {
+  const hue = TONES[tone];
   const n = seq.length;
   const bases = useRef<THREE.InstancedMesh>(null);
   const bonds = useRef<THREE.InstancedMesh>(null);
@@ -79,7 +84,7 @@ function Strands({ seq, focus, mode }: Pick<HelixProps, "seq" | "focus" | "mode"
         q.setFromRotationMatrix(axis);
         m.compose(p, q, s);
         mesh.setMatrixAt(i * 2 + (k as number), m);
-        c.set(mode === "bases" || lit ? FULL[pair[k as number]] : k ? "#efc3c8" : "#bccbf6");
+        c.set(mode === "bases" || lit ? hue.full[pair[k as number]] : k ? hue.qb : hue.qa);
         mesh.setColorAt(i * 2 + (k as number), c);
       });
       const count = b === "A" || b === "T" ? 2 : 3;
@@ -95,17 +100,17 @@ function Strands({ seq, focus, mode }: Pick<HelixProps, "seq" | "focus" | "mode"
     mesh.instanceMatrix.needsUpdate = true;
     dots.instanceMatrix.needsUpdate = true;
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-  }, [seq, focus, mode, ends, n]);
+  }, [seq, focus, mode, ends, n, hue]);
 
   return (
     <group>
-      <mesh geometry={tubeA}><meshPhysicalMaterial color={BLUE} roughness={0.38} clearcoat={0.5} clearcoatRoughness={0.35} /></mesh>
-      <mesh geometry={tubeB}><meshPhysicalMaterial color={RED} roughness={0.38} clearcoat={0.5} clearcoatRoughness={0.35} /></mesh>
+      <mesh geometry={tubeA}><meshPhysicalMaterial color={hue.a} roughness={0.38} clearcoat={0.5} clearcoatRoughness={0.35} /></mesh>
+      <mesh geometry={tubeB}><meshPhysicalMaterial color={hue.b} roughness={0.38} clearcoat={0.5} clearcoatRoughness={0.35} /></mesh>
       <instancedMesh key={`b${n}`} ref={bases} args={[slab, undefined, n * 2]} frustumCulled={false}>
         <meshPhysicalMaterial roughness={0.42} clearcoat={0.35} clearcoatRoughness={0.4} />
       </instancedMesh>
       <instancedMesh key={`h${n}`} ref={bonds} args={[undefined, undefined, n * 3]} frustumCulled={false}>
-        <sphereGeometry args={[1, 12, 12]} /><meshStandardMaterial color="#0e1a2b" roughness={0.6} />
+        <sphereGeometry args={[1, 12, 12]} /><meshStandardMaterial color={hue.dot} roughness={0.6} />
       </instancedMesh>
     </group>
   );
@@ -172,7 +177,7 @@ export default function Helix3D({ fov = 26, ...h }: HelixProps) {
             <Lightformer intensity={0.5} position={[0, 2, 8]} scale={[18, 2, 1]} />
             <Lightformer intensity={0.7} position={[0, -5, -3]} scale={[18, 4, 1]} rotation-x={Math.PI / 2} color="#cfe0ff" />
           </Environment>
-          <Rig still={still} spinRef={spin} fov={fov} across={h.across} at={h.at} tilt={h.tilt}><Strands seq={h.seq} focus={h.focus} mode={h.mode} /></Rig>
+          <Rig still={still} spinRef={spin} fov={fov} across={h.across} at={h.at} tilt={h.tilt}><Strands seq={h.seq} focus={h.focus} mode={h.mode} tone={h.tone} /></Rig>
         </Canvas>
       </Boundary>
     </div>

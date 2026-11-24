@@ -53,7 +53,7 @@ export default function TraitPage() {
       <div className="two">
         <div style={{ display: "grid", gap: 40 }}>
           {hidden ? (
-            <div className="box" style={{ borderLeft: "6px solid var(--dna)" }}>
+            <div className="box strand-l">
               <h2 style={{ fontSize: "1.6rem", marginBottom: 10 }}>You choose whether to see this</h2>
               <p className="measure" style={{ marginBottom: 18 }}>{t.sensitive} A genetic counselor can help you decide.</p>
               <div className="row">
@@ -62,8 +62,8 @@ export default function TraitPage() {
               </div>
             </div>
           ) : reading ? (
-            <div className="box" style={{ borderLeft: "6px solid var(--dna)" }}>
-              <p className="big dna" style={{ fontFamily: "var(--mono)", letterSpacing: 0, fontSize: "clamp(1.9rem,4vw,3rem)" }}>{reading.genotype}</p>
+            <div className="box strand-l">
+              <p className="big dna" style={{ fontFamily: "var(--mono)", fontWeight: 600, letterSpacing: 0, fontSize: "clamp(1.9rem,4vw,3rem)" }}>{reading.genotype}</p>
               <h2 style={{ fontSize: "1.6rem", margin: "14px 0 8px" }}>{reading.label}</h2>
               <p className="measure">{reading.text}</p>
             </div>
@@ -72,7 +72,7 @@ export default function TraitPage() {
           )}
 
           {insight && !hidden && (
-            <div className="box" style={{ borderRight: "6px solid var(--blood)", borderLeft: "6px solid var(--dna)" }}>
+            <div className="box strand-l strand-r">
               <h2 style={{ fontSize: "1.45rem", marginBottom: 8 }}>{insight.title}</h2>
               <p className="measure">{insight.text}</p>
               {insight.ask && <p className="measure" style={{ marginTop: 10 }}><strong>Ask:</strong> {insight.ask}</p>}

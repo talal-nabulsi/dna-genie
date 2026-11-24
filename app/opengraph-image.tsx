@@ -11,11 +11,11 @@ const path = (off: number) => Array.from({ length: N * 4 }, (_, k) => pt(k / 4, 
 export default function Image() {
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", background: "#eaf0f3", color: "#0e1a2b", position: "relative" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: "#fbf3f5", color: "#2a1238", position: "relative" }}>
         <svg width="1200" height="630" viewBox="0 0 1200 630" style={{ position: "absolute", left: 0, top: 0 }}>
-          {Array.from({ length: N }, (_, i) => { const [x, a] = pt(i, 0), [, b] = pt(i, 2.36); return <line key={i} x1={x} x2={x} y1={a} y2={b} stroke={i === 36 ? "#17804b" : "#b4c3d6"} strokeWidth={i === 36 ? 12 : 7} />; })}
-          <path d={path(0)} fill="none" stroke="#1b3fb5" strokeWidth="13" />
-          <path d={path(2.36)} fill="none" stroke="#a8172f" strokeWidth="13" />
+          {Array.from({ length: N }, (_, i) => { const [x, a] = pt(i, 0), [, b] = pt(i, 2.36); return <line key={i} x1={x} x2={x} y1={a} y2={b} stroke={i === 36 ? "#2a1238" : "#e3cfe6"} strokeWidth={i === 36 ? 12 : 7} />; })}
+          <path d={path(0)} fill="none" stroke="#5a2a8c" strokeWidth="13" />
+          <path d={path(2.36)} fill="none" stroke="#d0356b" strokeWidth="13" />
         </svg>
         <div style={{ display: "flex", flexDirection: "column", padding: "64px 72px" }}>
           <div style={{ fontSize: 32, fontWeight: 600 }}>DNA Genie</div>

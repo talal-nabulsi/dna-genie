@@ -43,7 +43,7 @@ export default function UploadPage() {
       <div className="two">
         <div style={{ display: "grid", gap: 20 }}>
           {done ? (
-            <div className="box" style={{ borderLeft: "6px solid var(--dna)" }} role="status">
+            <div className="box strand-l" role="status">
               <h2 style={{ fontSize: "1.6rem", marginBottom: 8 }}>{done.snps.size} of {ALL_RSIDS.size} positions found</h2>
               <p className="measure" style={{ marginBottom: 20 }}>Read {done.rows.toLocaleString("en-US")} rows of a {FORMAT_NAME[done.format]} file. {r.user && !saveErr ? "The genotypes are saved to your account." : "They stay in this tab."}</p>
               <div className="row"><Link className="btn fill" href="/dashboard">Open the report</Link><Link className="btn red" href="/blood">Add a blood test</Link></div>

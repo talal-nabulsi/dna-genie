@@ -24,7 +24,7 @@ export default function Home() {
       <main id="main">
         <Hero markers={TRAITS.length} />
 
-        <section className="section sheet" id="example">
+        <section className="section deep" id="example">
           <div className="wrap">
             <div className="head">
               <h2 className="h2">A marker means more next to a measurement.</h2>

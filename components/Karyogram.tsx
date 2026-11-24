@@ -7,8 +7,8 @@ import type { Trait } from "@/lib/traits/types";
 
 const B = bands as unknown as Record<string, [number, number, string, string][]>;
 const CHR = [...Array.from({ length: 22 }, (_, i) => String(i + 1)), "X"];
-const STAIN: Record<string, string> = { gneg: "#f4f8fa", gpos25: "#cfd9e1", gpos50: "#a3b2bf", gpos75: "#6f8192", gpos100: "#3f5062", gvar: "#dbe4ea", stalk: "#dbe4ea" };
-const W = 1240, TOP = 14, H = 330, BAR = 17, STEP = W / CHR.length;
+const STAIN: Record<string, string> = { gneg: "#fff6f9", gpos25: "#e6d3ee", gpos50: "#c2a0d8", gpos75: "#8f5fb5", gpos100: "#56288a", gvar: "#f3dbe6", stalk: "#f3dbe6" };
+const W = 1240, TOP = 14, H = 330, BAR = 22, STEP = W / CHR.length;
 const MAX = B["1"][B["1"].length - 1][1];
 const y = (bp: number) => TOP + (bp / MAX) * H;
 
@@ -27,7 +27,7 @@ export default function Karyogram({ selected, onSelect, dim }: { selected?: stri
     <div className="kary" tabIndex={0} role="region" aria-label="Chromosomes with the positions read from your file">
       <svg viewBox={`0 0 ${W} ${TOP + H + 34}`} role="group">
         {CHR.map((c, i) => {
-          const cx = STEP * i + STEP / 2 - 8, rows = B[c], end = y(rows[rows.length - 1][1]);
+          const cx = STEP * i + STEP / 2 - 10, rows = B[c], end = y(rows[rows.length - 1][1]);
           const cen = rows.filter((r) => r[3] === "acen");
           const c0 = y(cen[0][0]), c1 = y(cen[cen.length - 1][1]), cm = y(cen[0][1]);
           const l = cx - BAR / 2, r = cx + BAR / 2, k = 4;
@@ -36,16 +36,16 @@ export default function Karyogram({ selected, onSelect, dim }: { selected?: stri
             <g key={c}>
               <clipPath id={`k${c}`}><path d={shape} /></clipPath>
               <g clipPath={`url(#k${c})`}>
-                {rows.map((b) => <rect key={b[2]} x={l} width={BAR} y={y(b[0])} height={y(b[1]) - y(b[0]) + 0.4} fill={b[3] === "acen" ? "#8d9dab" : STAIN[b[3]] ?? "#fff"} />)}
+                {rows.map((b) => <rect key={b[2]} x={l} width={BAR} y={y(b[0])} height={y(b[1]) - y(b[0]) + 0.4} fill={b[3] === "acen" ? "#e58aa9" : STAIN[b[3]] ?? "#fff"} />)}
               </g>
-              <path d={shape} fill="none" stroke="#3f5062" strokeWidth="1" />
+              <path d={shape} fill="none" stroke="#56288a" strokeWidth="1" />
               <text x={cx} y={TOP + H + 26} textAnchor="middle" fontSize="15" fill="var(--ink-2)" style={{ fontFamily: "var(--mono)" }}>{c}</text>
               {spread(SITES.filter((s) => s.chr === c)).map((s) => {
                 const on = selected === s.rsid, faded = dim?.(s);
                 const body = (
                   <>
-                    <path d={`M${l - 1} ${y(s.pos)} H${r + 3} L${r + 9} ${s.ly}`} fill="none" stroke="var(--dna)" strokeWidth={on ? 3 : 2} />
-                    <circle className="ring" cx={r + 13} cy={s.ly} r={on ? 7 : 4.6} fill={on ? "var(--dna)" : "var(--paper)"} stroke="var(--dna)" strokeWidth="2" />
+                    <path d={`M${l - 1} ${y(s.pos)} H${r + 3} L${r + 9} ${s.ly}`} fill="none" stroke="var(--ink)" strokeWidth={on ? 2.6 : 1.6} />
+                    <circle className="ring" cx={r + 13} cy={s.ly} r={on ? 7 : 4.8} fill={on ? "var(--ink)" : "#fff"} stroke="var(--ink)" strokeWidth="2" />
                   </>
                 );
                 if (!onSelect) return <g key={s.rsid} opacity={faded ? 0.2 : 1}><title>{`${s.trait.gene}, chr${c}:${s.pos.toLocaleString("en-US")}`}</title>{body}</g>;

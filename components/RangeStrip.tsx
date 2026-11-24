@@ -21,10 +21,9 @@ export default function RangeStrip({ j, caption = true }: { j: Judged; caption?:
   return (
     <>
       <svg className="strip" aria-hidden="true">
-        <rect x="0" y="11" width="100%" height="4" fill="var(--line-2)" />
-        <rect x={`${lo}%`} y="8" width={`${hi - lo}%`} height="10" fill="#cdd8e0" />
-        <line x1={`${x(j.value)}%`} x2={`${x(j.value)}%`} y1="1" y2="25" stroke="var(--blood)" strokeWidth={out ? 5 : 3} />
-        <circle cx={`${x(j.value)}%`} cy="13" r="6.5" fill={out ? "var(--blood)" : "var(--sheet)"} stroke="var(--blood)" strokeWidth="3" />
+        <rect x="0" y="10" width="100%" height="6" rx="3" fill="var(--line-2)" />
+        <rect x={`${lo}%`} y="6" width={`${hi - lo}%`} height="14" rx="7" fill="#e6cfdc" />
+        <circle cx={`${x(j.value)}%`} cy="13" r="8" fill={out ? "var(--blood)" : "var(--sheet)"} stroke="var(--blood)" strokeWidth="3" />
       </svg>
       {caption && <div className="cap"><span>{j.rangeSource === "lab" ? "Your lab" : "General range"}: {formatRange(j.range)}</span><span>{j.marker.unit}</span></div>}
     </>

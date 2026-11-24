@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Familjen_Grotesk } from "next/font/google";
+import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Hedvig_Letters_Serif } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { TRAITS } from "@/lib/traits/panel";
 
-const display = Familjen_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap", adjustFontFallback: false });
+const display = Hedvig_Letters_Serif({ subsets: ["latin"], weight: "400", variable: "--font-display", display: "swap", adjustFontFallback: false });
 const text = Atkinson_Hyperlegible_Next({ subsets: ["latin"], variable: "--font-text", display: "swap", adjustFontFallback: false });
 const mono = Atkinson_Hyperlegible_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap", adjustFontFallback: false });
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: "DNA Genie", description },
 };
 
-export const viewport: Viewport = { themeColor: "#eaf0f3", colorScheme: "light" };
+export const viewport: Viewport = { themeColor: "#fbf3f5", colorScheme: "light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
