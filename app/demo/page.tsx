@@ -2,32 +2,20 @@
 
 import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useDemo } from "@/contexts/DemoContext";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { update } from "@/lib/session/store";
 
-function DemoRedirect() {
+const ALLOWED = /^\/(dashboard|summary|explore|blood|traits\/[a-z0-9-]+)$/;
+
+function Go() {
   const router = useRouter();
-  const params = useSearchParams();
-  const { enterDemo } = useDemo();
-
+  const next = useSearchParams().get("next");
   useEffect(() => {
-    enterDemo();
-    const next = params.get("next");
-    router.replace(next && next.startsWith("/") ? next : "/dashboard");
-  }, [enterDemo, router, params]);
-
-  return null;
+    update({ demo: true, genome: null, labs: null, opened: [] });
+    router.replace(next && ALLOWED.test(next) ? next : "/dashboard");
+  }, [router, next]);
+  return <main id="main" className="wrap" style={{ padding: "20vh 0" }}><p>Opening the sample report</p></main>;
 }
 
-/** Entry point for the sample-genome walkthrough. Flags demo mode, then lands on the dashboard. */
 export default function DemoPage() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[var(--color-background)]">
-      <Suspense fallback={null}>
-        <DemoRedirect />
-      </Suspense>
-      <LoadingSpinner size="lg" />
-      <p className="text-sm text-[var(--color-muted)]">Loading the sample genome…</p>
-    </div>
-  );
+  return <Suspense fallback={null}><Go /></Suspense>;
 }

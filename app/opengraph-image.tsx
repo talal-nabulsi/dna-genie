@@ -1,75 +1,28 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "DNA Genie — decode your genome in the browser";
+export const alt = "DNA Genie. Read your DNA beside your blood test.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Stylised double helix drawn with SVG so the social card needs no external assets. */
-function Helix() {
-  const rungs = Array.from({ length: 14 }, (_, i) => i);
-  return (
-    <svg width="520" height="560" viewBox="0 0 520 560" fill="none">
-      <defs>
-        <linearGradient id="g" x1="0" y1="0" x2="520" y2="560" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#d9d2ff" />
-          <stop offset="0.5" stopColor="#8f7cff" />
-          <stop offset="1" stopColor="#d896c8" />
-        </linearGradient>
-      </defs>
-      {rungs.map((i) => {
-        const t = i / (rungs.length - 1);
-        const y = 30 + t * 500;
-        const phase = t * Math.PI * 3;
-        const x1 = 260 + Math.sin(phase) * 150;
-        const x2 = 260 - Math.sin(phase) * 150;
-        const colors = ["#5e6ad2", "#8f7cff", "#d896c8", "#7cc4e8"];
-        return (
-          <g key={i}>
-            <line x1={x1} y1={y} x2={x2} y2={y} stroke={colors[i % 4]} strokeWidth="10" strokeLinecap="round" opacity="0.9" />
-            <circle cx={x1} cy={y} r="13" fill="#ece8f8" />
-            <circle cx={x2} cy={y} r="13" fill="#ece8f8" />
-          </g>
-        );
-      })}
-      <path d={`M ${260 + Math.sin(0) * 150} 30 ${rungs.map((i) => { const t = i / (rungs.length - 1); return `L ${260 + Math.sin(t * Math.PI * 3) * 150} ${30 + t * 500}`; }).join(" ")}`} stroke="url(#g)" strokeWidth="7" strokeLinecap="round" fill="none" opacity="0.9" />
-      <path d={`M ${260 - Math.sin(0) * 150} 30 ${rungs.map((i) => { const t = i / (rungs.length - 1); return `L ${260 - Math.sin(t * Math.PI * 3) * 150} ${30 + t * 500}`; }).join(" ")}`} stroke="url(#g)" strokeWidth="7" strokeLinecap="round" fill="none" opacity="0.9" />
-    </svg>
-  );
-}
+const N = 72, W = 1200, MID = 470, R = 92;
+const pt = (i: number, off: number) => [(i / (N - 1)) * (W + 80) - 40, MID + Math.cos((i / 10.5) * Math.PI * 2 + off) * R] as const;
+const path = (off: number) => Array.from({ length: N * 4 }, (_, k) => pt(k / 4, off)).map(([x, y], k) => `${k ? "L" : "M"}${x.toFixed(1)} ${y.toFixed(1)}`).join(" ");
 
-export default function OpenGraphImage() {
+export default function Image() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          background: "radial-gradient(ellipse at 75% 50%, rgba(143,124,255,0.18), #0a0a14 60%)",
-          color: "#e9e4f5",
-          fontFamily: "Inter, system-ui, sans-serif",
-          padding: "72px",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 620 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 26, fontWeight: 700, marginBottom: 36 }}>
-            <div style={{ width: 14, height: 14, borderRadius: 999, background: "#8f7cff", boxShadow: "0 0 18px #8f7cff" }} />
-            DNA Genie
-          </div>
-          <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2, display: "flex", flexDirection: "column" }}>
-            <span>Your genome,</span>
-            <span style={{ color: "#8f7cff" }}>decoded</span>
-            <span>in the browser.</span>
-          </div>
-          <div style={{ fontSize: 24, color: "#8c88a6", marginTop: 28, lineHeight: 1.4 }}>
-            40 research-backed traits from a 23andMe or AncestryDNA file. Parsed locally — your raw DNA never touches a server.
-          </div>
+      <div style={{ width: "100%", height: "100%", display: "flex", background: "#eaf0f3", color: "#0e1a2b", position: "relative" }}>
+        <svg width="1200" height="630" viewBox="0 0 1200 630" style={{ position: "absolute", left: 0, top: 0 }}>
+          {Array.from({ length: N }, (_, i) => { const [x, a] = pt(i, 0), [, b] = pt(i, 2.36); return <line key={i} x1={x} x2={x} y1={a} y2={b} stroke={i === 36 ? "#17804b" : "#b4c3d6"} strokeWidth={i === 36 ? 12 : 7} />; })}
+          <path d={path(0)} fill="none" stroke="#1b3fb5" strokeWidth="13" />
+          <path d={path(2.36)} fill="none" stroke="#a8172f" strokeWidth="13" />
+        </svg>
+        <div style={{ display: "flex", flexDirection: "column", padding: "64px 72px" }}>
+          <div style={{ fontSize: 32, fontWeight: 600 }}>DNA Genie</div>
+          <div style={{ fontSize: 82, lineHeight: 1.02, letterSpacing: -3, marginTop: 26, maxWidth: 1040 }}>Read your DNA beside your blood test.</div>
         </div>
-        <Helix />
       </div>
     ),
-    size
+    size,
   );
 }

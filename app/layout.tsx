@@ -1,69 +1,31 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, JetBrains_Mono } from "next/font/google";
+import { Atkinson_Hyperlegible_Mono, Atkinson_Hyperlegible_Next, Familjen_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { DemoProvider } from "@/contexts/DemoContext";
-import AnalyticsProvider from "@/components/AnalyticsProvider";
+import { TRAITS } from "@/lib/traits/panel";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
+const display = Familjen_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap", adjustFontFallback: false });
+const text = Atkinson_Hyperlegible_Next({ subsets: ["latin"], variable: "--font-text", display: "swap", adjustFontFallback: false });
+const mono = Atkinson_Hyperlegible_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap", adjustFontFallback: false });
 
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
-
-const SITE_URL = "https://dnagenie.app";
+const description = `Read ${TRAITS.length} well-studied DNA markers from a 23andMe or AncestryDNA file, beside your own blood test. Both files are read on your device.`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "DNA Genie — Decode your genome in the browser",
-    template: "%s · DNA Genie",
-  },
-  description:
-    "Upload a 23andMe or AncestryDNA export and discover 40 research-backed genetic traits. Parsing happens entirely in your browser — your raw DNA never touches a server.",
-  keywords: ["DNA", "23andMe", "AncestryDNA", "genetics", "SNP", "traits", "privacy", "genome"],
-  authors: [{ name: "Talal Nabulsi", url: "https://github.com/talal-nabulsi" }],
-  openGraph: {
-    type: "website",
-    url: SITE_URL,
-    siteName: "DNA Genie",
-    title: "DNA Genie — Decode your genome in the browser",
-    description:
-      "40 research-backed traits from your 23andMe or AncestryDNA file. 100% client-side parsing. Explore an interactive 3D genome.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "DNA Genie — Decode your genome in the browser",
-    description:
-      "40 research-backed traits from your 23andMe or AncestryDNA file. 100% client-side parsing.",
-  },
+  metadataBase: new URL("https://dnagenie.app"),
+  title: { default: "DNA Genie", template: "%s | DNA Genie" },
+  description,
+  openGraph: { type: "website", url: "https://dnagenie.app", siteName: "DNA Genie", title: "DNA Genie", description },
+  twitter: { card: "summary_large_image", title: "DNA Genie", description },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#0a0a14",
-  colorScheme: "dark",
-};
+export const viewport: Viewport = { themeColor: "#eaf0f3", colorScheme: "light" };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${jetbrains.variable}`}>
-      <body className="font-sans antialiased">
-        <AuthProvider>
-          <DemoProvider>
-            <AnalyticsProvider />
-            {children}
-          </DemoProvider>
-        </AuthProvider>
+    <html lang="en" className={`${display.variable} ${text.variable} ${mono.variable}`}>
+      <body>
+        <a className="skip" href="#main">Skip to content</a>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

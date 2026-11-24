@@ -8,19 +8,19 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "gen:sample": "tsx scripts/gen-sample-genome.ts > lib/demo/sampleGenome.ts"
+    "test": "vitest run",
+    "sync:citations": "node scripts/sync-citations.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
+    "fflate": "0.8.2",
     "firebase": "^12.9.0",
-    "lucide-react": "^0.575.0",
     "motion": "^12.34.3",
     "next": "16.1.6",
+    "pdfjs-dist": "5.4.296",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-dropzone": "^15.0.0",
-    "swiper": "^12.1.2",
     "three": "^0.186.0"
   },
   "devDependencies": {
@@ -33,9 +33,10 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^3.2.7"
   },
-  "description": "Privacy-first genetic trait discovery: 40 research-backed traits from a 23andMe/AncestryDNA file, parsed in the browser, with an interactive 3D genome.",
+  "description": "Read a consumer DNA file beside a blood panel, on your own device.",
   "homepage": "https://dnagenie.app",
   "license": "MIT"
 }
